@@ -21,8 +21,5 @@ body {
     --foreground: #ededed;
   }
 
-  :dark {
-    --background: #171717;
-    --foreground: #ededed;
-  }
+
 }
