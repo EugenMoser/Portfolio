@@ -7,7 +7,14 @@ const strings = {
     resume: "Lebenslauf",
   },
 
-  aboutMeText: `About me awsome text. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.`,
+  aboutMeText: `React / Next.js Webentwickler mit Fokus auf skalierbare, saubere und wartbare Fullstack-Lösungen. Ich entwickle Anwendungen nicht „featuregetrieben“, sondern problemgetrieben: klare Anforderungen, saubere Architektur, messbarer Mehrwert.
+
+  Mein technischer Schwerpunkt liegt auf React, Next.js (App Router), TypeScript und modernen Fullstack-Architekturen mit Server Actions, Authentifizierung, Datenbanken (MongoDB / SQL via Prisma) und sauberem State-Management. Ich lege hohen Wert auf Codequalität, Performance, Security und langfristige Wartbarkeit – kein Schnellschuss-Code, der in sechs Monaten Probleme macht.
+
+  Was mich von vielen Entwicklern unterscheidet:
+  Ich verbinde unternehmerisches Denken mit technischer Präzision. Durch meine frühere Laufbahn im kaufmännischen Umfeld verstehe ich Prozesse, Abhängigkeiten und Stakeholder – und übersetze Business-Anforderungen effizient in stabile Software. Ich denke in Systemen, nicht in Komponenten.
+
+  Beruflich habe ich in Enterprise-Umgebungen mit tausenden Nutzern gearbeitet (SharePoint / SPFx), APIs erweitert, Legacy-Code stabilisiert und moderne React-Frontends aufgebaut. Gleichzeitig entwickle ich eigenständig moderne Next.js-Fullstack-Projekte, setze Authentifizierung, Datenmodelle, CI-nahe Workflows und saubere Projektstrukturen um.`,
 
   resume: {
     experienceTitle: "Praktische Erfahrung",

@@ -13,13 +13,13 @@ import { BentoGrid, BentoGridItem } from "../ui/bento-grid";
 
 export function PortfolioGrid() {
   return (
-    <BentoGrid className="mx-auto max-w-4xl md:auto-rows-[20rem]">
+    <BentoGrid className="mx-full mt-10 flex max-w-full flex-col">
       {/* About Me Tile */}
       <BentoGridItem
         title={strings.sectionTitle.aboutMe}
-        description={strings.aboutMeText.substring(0, 150) + "..."}
+        description={strings.aboutMeText}
         header={<SkeletonProfile />}
-        className="md:col-span-2"
+        className="min-h-content w-full"
         icon={<UserIcon className="h-4 w-4 text-neutral-500" />}
       />
 
@@ -40,7 +40,7 @@ export function PortfolioGrid() {
           </div>
         }
         header={<SkeletonStack />}
-        className="md:col-span-1"
+        className="min-h-content w-full"
         icon={<CodeIcon className="h-4 w-4 text-neutral-500" />}
       />
 
@@ -49,7 +49,7 @@ export function PortfolioGrid() {
         title={strings.resume.experienceTitle}
         description={`Aktuell: ${strings.resume.experience[0].position} bei ${strings.resume.experience[0].company}`}
         header={<SkeletonTimeline />}
-        className="md:col-span-1"
+        className="min-h-content w-full"
         icon={<BriefcaseIcon className="h-4 w-4 text-neutral-500" />}
       />
 
@@ -59,7 +59,7 @@ export function PortfolioGrid() {
           title={strings.projects[0].title}
           description={strings.projects[0].description}
           header={<SkeletonProject />}
-          className="md:col-span-2"
+          className="min-h-content w-full"
           icon={<LayoutIcon className="h-4 w-4 text-neutral-500" />}
         />
       )}
@@ -69,7 +69,7 @@ export function PortfolioGrid() {
         title={strings.sectionTitle.education}
         description={strings.education[0].name}
         header={<SkeletonEducation />}
-        className="md:col-span-1"
+        className="min-h-content w-full"
         icon={<GraduationCapIcon className="h-4 w-4 text-neutral-500" />}
       />
     </BentoGrid>

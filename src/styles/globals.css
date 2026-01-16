@@ -2,22 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Einbinden der lokalen Schriftart "Mono DM" */
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  font-family: "Mono DM";
+  src: url("/fonts/DMMono-Regular") format("truetype");
   font-weight: 400;
   font-style: normal;
+}
+
+@layer base {
+  :root {
+    --color-background: #0a0a0a;
+
+    /* Transparent background for header */
+    --color-header-background: rgb(39 39 42 / 0.3);
+
+    --color-text-primary: #ededed;
+
+    --color-border: rgb(38 38 38 / 1);
+  }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Setzen der Schriftart auf "Mono DM" mit Fallbacks */
+  font-family: "Mono DM", monospace, "Courier New";
 }
 
-@layer base {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+h1 {
+  font-size: 3rem;
 }

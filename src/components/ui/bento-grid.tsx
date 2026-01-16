@@ -40,11 +40,11 @@ export const BentoGridItem = ({
     <motion.div
       whileHover={{ scale: 1.01 }}
       className={cn(
-        "group/bento row-span-1 flex flex-col justify-between space-y-4 rounded-xl border border-white/[0.2] bg-black p-4 shadow-none transition duration-200 hover:shadow-xl",
+        "group/bento flex w-full flex-col justify-between space-y-4 rounded-xl border border-white/[0.2] bg-black p-4 shadow-none transition duration-200 hover:shadow-xl",
         className,
       )}
     >
-      {header}
+      {/* {header} */}
       <div className="transition duration-200 group-hover/bento:translate-x-2">
         {icon}
         <div className="mb-2 mt-2 font-sans font-bold text-neutral-600 dark:text-neutral-200">
