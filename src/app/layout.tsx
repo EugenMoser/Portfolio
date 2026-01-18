@@ -2,6 +2,8 @@ import "@/styles/globals.css";
 
 import type { Metadata } from "next";
 
+import Navigation from "@/components/navigation/Navigation";
+
 //mono font einbinden los
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -15,7 +17,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body className="bg-[var(--color-background)] text-[var(--color-text-primary)] antialiased">
+      <body className="relative grid grid-cols-[0_200px_800px] bg-[var(--color-background)] text-[var(--color-text-primary)] antialiased">
+        <Navigation />
         {children}
       </body>
     </html>

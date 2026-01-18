@@ -9,20 +9,24 @@ import {
 } from "lucide-react";
 
 import { strings } from "../../data/portfolio";
-import { BentoGrid, BentoGridItem } from "../ui/bento-grid";
+import {
+  BentoGrid,
+  BentoGridItem,
+} from "../ui/bento-grid";
 
 export function PortfolioGrid() {
   return (
-    <BentoGrid className="mx-full mt-10 flex max-w-full flex-col">
+    <BentoGrid className="flex flex-col">
       {/* About Me Tile */}
-      <BentoGridItem
-        title={strings.sectionTitle.aboutMe}
-        description={strings.aboutMeText}
-        header={<SkeletonProfile />}
-        className="min-h-content w-full"
-        icon={<UserIcon className="h-4 w-4 text-neutral-500" />}
-      />
-
+      <div id="about-me" className="h-[100vh]">
+        <BentoGridItem
+          title={strings.sectionTitle.aboutMe}
+          description={strings.aboutMeText}
+          header={<SkeletonProfile />}
+          className="h-[100vh]"
+          icon={<UserIcon className="h-4 w-4 text-neutral-500" />}
+        />
+      </div>
       {/* Skills Tile */}
       <BentoGridItem
         title="Tech Stack"
