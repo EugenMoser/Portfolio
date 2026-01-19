@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body className="relative grid grid-cols-[0_200px_800px] bg-[var(--color-background)] text-[var(--color-text-primary)] antialiased">
+      <body className="relative grid grid-cols-[200px_1fr] bg-[var(--color-background)] text-[var(--color-text-primary)] antialiased">
         <Navigation />
         {children}
       </body>
