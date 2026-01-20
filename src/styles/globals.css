@@ -28,6 +28,7 @@ body {
   background: var(--background);
   /* Setzen der Schriftart auf "Mono DM" mit Fallbacks */
   font-family: "Mono DM", monospace, "Courier New";
+  font-size: 1.5rem;
 }
 
 h1 {
