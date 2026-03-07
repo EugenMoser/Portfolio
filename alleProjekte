@@ -1,0 +1,213 @@
+##Projekt1
+
+
+
+Enterprise Collaboration & Notification System (SharePoint / MS Teams) 
+
+Rolle: Full Stack Developer (SPFx & Azure Cloud) 
+
+ 
+
+Beschreibung: 
+
+Konzeption und Weiterentwicklung einer firmeninternen Kommunikationslösung, die nahtlos in die Microsoft 365 Umgebung (SharePoint Online und Microsoft Teams) integriert ist. Das Tool ermöglicht Mitarbeitern kontextbezogene Diskussionen direkt auf SharePoint-Inhaltsseiten und erweitert diese durch eine intelligente Benachrichtigungslogik in Microsoft Teams. 
+
+ 
+
+Kernfunktionen & Technologien: 
+
+ 
+
+Tech Stack: TypeScript, React, Node.js, SharePoint Framework (SPFx), Microsoft Graph API. 
+
+User Engagement: Implementierung einer performanten @-Mentioning Funktion (ähnlich wie in Social Media), inklusive Regex-Parsing und Live-Benutzervorschlägen aus dem Active Directory. 
+
+Teams Integration: Entwicklung einer Microsoft Teams App (Tabs & Bots) zur Aggregation von Benachrichtigungen und Deep-Linking auf relevante Inhalte mithilfe des Teams Toolkit und Fluent UI. 
+
+UI/UX Design: Modernisierung der Benutzeroberfläche unter Verwendung von Microsoft Fluent UI (React) für ein natives Look & Feel sowie Optimierung der Responsivität für mobile Endgeräte. 
+
+Cloud & DevOps: Bereitstellung und Konfiguration von Azure Static Web Apps und Azure Functions als Backend-Middleware; Verwaltung von CI/CD-Pipelines und Versionsmanagement. 
+
+Erfolge: 
+
+ 
+
+Erhöhung der Nutzerinteraktion durch die Einführung intuitiver Mentioning-Features. 
+
+Erfolgreiche Migration und Refactoring bestehender Komponenten auf moderne Fluent UI Standards. 
+
+Sicherstellung der Produktionsreife durch Bugfixing, Performance-Optimierung (z.B. User-Suggestion Limits) und Deployment-Management. 
+
+Analyse deiner Tätigkeiten (Nur für dich zur Info) 
+
+Damit du weißt, worauf ich mich beziehe – ich habe folgende deiner Beiträge im Code/Git gefunden: 
+
+ 
+
+Mention-Feature: Du hast das Herzstück gebaut – die Logik, um Kollegen mit @ zu erwähnen, inkl. der Vorschlagsliste (User Suggestions) und dem Parsen der Texte. 
+
+Teams App: Du hast die ida-teams-comments-notification App hinzugefügt, was zeigt, dass du über den Tellerrand von SharePoint hinaus blicken kannst. 
+
+UI-Umbau: Viele Commits betreffen das Styling ("enhance suggestion container", "change to Fluent UI"), du hast also Wert auf Usability gelegt. 
+
+Maintenance: Du hast Versionierungen gepflegt, Deployments vorbereitet und Bugs gefixt (z.B. "reset mention users on submit"). 
+##Projekt2
+Projektbeschreibung – IDA Sidebar Extension 
+
+Projekt: IDA Sidebar Extension (SharePoint Online Add-In) 
+
+Zeitraum: November 2021 – Februar 2026 
+
+Technologien: TypeScript · React 17 · SharePoint Framework (SPFx) · Fluent UI · Microsoft Graph API · PnP.js · Yammer API · Gulp 
+
+ 
+
+Kurzüberblick 
+
+ 
+
+Das IDA-Portal ist das digitale Arbeitsplatz - Intranet öffentliche Einrichtung im internationalen Entwicklungsbereich. Als zentrales Element wurde eine maßgeschneiderte SharePoint-Sidebar entwickelt, die Mitarbeitenden mandantenübergreifend (mehrere SharePoint-Tenants) kontextsensitive Tools und Informationen bereitstellt. 
+
+ 
+
+Eigener Beitrag (Auszug) 
+
+ 
+
+Migration & Portierung: Vollständige Portierung der AddPage-Komponente (Seiten-Assistent für Content-, News-, Wiki- und Blog-Seiten) von Vue.js auf React/TypeScript innerhalb des SPFx-Frameworks 
+
+Feature-Entwicklung: Implementierung eines neuen Sidebar-Buttons für das Self-Service-Portal sowie Integration eines konfigurierbaren Einstellungs-Systems via SharePoint-Liste (statt hart kodierter Werte) 
+
+Mehrsprachigkeit: Migration und Weiterentwicklung der Multilanguage-Komponente inkl. „Nicht mehr anzeigen"-Funktionalität im Sprachauswahl-Popup 
+
+Accessibility & UX: Verbesserungen hinsichtlich WCAG-Barrierefreiheit und überarbeitetes Sidebar-Dropdown (Wechsel auf sprachsensitives Dropdown-Control) 
+
+Bugfixing & Stabilität: Behebung eines kritischen Mehrfach-Sidebar-Bugs sowie diverse Code-Qualitätsverbesserungen (Prettier, Refactoring) 
+
+Wartung & Betrieb: Laufende Anpassungen wie Link-Migrationen (ESS → WorkZone), Konfiguration der Feedback-Empfänger und Versionsmanagement 
+
+ 
+
+ 
+
+ 
+
+Tipp für die Bewerbung: Je nach Stelle kannst du den Schwerpunkt verschieben – bei einer Frontend-Stelle die React-Migration und Fluent UI betonen, bei einer SharePoint/M365-Stelle SPFx und die Graph-API-Integration. 
+
+
+##Projekt3
+SPFx WebPart: Employee Profiles (Mitarbeiterprofile) 
+
+Was ist das Tool? 
+
+Ein SharePoint WebPart für das Intranet-Mitarbeiterverzeichnis. Es stellt Mitarbeiterprofile in einem strukturierten Format dar und bietet Kolleginnen und Kollegen eine komfortable Such- und Filteroberfläche. 
+
+Meine Beiträge (November 2023): 
+
+Ich erweiterte die bestehende Suchfunktion des Mitarbeiterprofil-WebParts grundlegend: Die Suche wurde auf alle relevanten Datenspalten ausgedehnt, anstatt zuvor nur einzelne Felder zu durchsuchen. Zusätzlich überarbeitete ich die Formatierung der Datumsanzeige in der Suche und verbesserte die Beschriftung der Suchmaske für eine intuitivere Bedienung. 
+
+Technologien: TypeScript, React, Microsoft SPFx, SharePoint REST API 
+
+Zeitraum: November 2023 
+
+
+##Projekt4
+SPFx Form Customizer: Onboarding-Formular (Individual Employee Variante) 
+
+Was ist das Tool? 
+
+Eine spezialisierte Variante des Onboarding Form Customizers, ausgerichtet auf die individuelle Mitarbeiterliste. Das Projekt wurde als eigenständige SPFx-Lösung entwickelt und ermöglicht eine zielgruppenspezifische Formulargestaltung für einzelne Mitarbeitende. 
+
+ 
+
+Meine Beiträge (Dezember 2025): 
+
+ 
+
+Ich erstellte die Projektstruktur dieser Variante vollständig von Grund auf und adaptierte die Kernarchitektur des bestehenden Form Customizers für den neuen Anwendungsfall. Dabei entwickelte ich neue Eingabekomponenten (z. B. Checkbox), passte Pflichtfeldlogik und Styling an und integrierte ein PowerShell-Skript zur automatischen Verknüpfung des Customizers mit der SharePoint-Liste über PnP. 
+
+ 
+
+Technologien: TypeScript, React, Microsoft SPFx, Fluent UI, PnP PowerShell 
+
+ 
+
+Zeitraum: Dezember 2025 
+##Projekt5
+
+SPFx Form Customizer: Onboarding-Formular (Allgemein) 
+
+Was ist das Tool? 
+
+Ein SharePoint Framework (SPFx) Form Customizer für das unternehmenseigene Intranet. Dieser ersetzt das Standard-SharePoint-Listenformular durch ein vollständig individuell entwickeltes React-Formular, das den Onboarding-Prozess neuer Mitarbeitender digital abbildet. 
+
+ 
+
+Meine Beiträge (September – November 2025): 
+
+ 
+
+Im Rahmen der digitalen Neugestaltung des Mitarbeiter-Onboardings entwickelte ich eigenverantwortlich einen SharePoint Form Customizer auf Basis von Microsoft SPFx und React. Das Formular ermöglicht es HR-Mitarbeitenden, strukturierte Onboarding-Daten direkt in SharePoint zu erfassen und zu verwalten. Ich verantwortete die Konzeption und Umsetzung der gesamten Formulararchitektur – von der dynamischen Abfrage der SharePoint-Listenfelder über die Implementierung wiederverwendbarer Eingabekomponenten (Text, ComboBox, RichText, Mehrfachauswahl) bis hin zur Drag-and-Drop-Sortierung von Einträgen. Ein besonderer Fokus lag auf Usability: Ich implementierte kontextbezogene Fehleranzeigen, Lade-Indikatoren, eine dedizierte View-Ansicht sowie eine Service-Schicht für die vollständige Entkopplung von Geschäftslogik und UI. 
+
+ 
+
+Technologien: TypeScript, React, Microsoft SPFx, Fluent UI, PnP.js, SharePoint REST API 
+
+ 
+
+Zeitraum: September 2025 – November 2025 
+##Projekt6
+
+Projektbeschreibung: SharePoint-Reservierungssystem für die belgische Regierung 
+
+ 
+
+Zeitraum: 2021 – 2026 
+
+Technologien: TypeScript · React · SharePoint Framework (SPFx) · Microsoft 365 · Fluent UI · PnP.js · REST API 
+
+ 
+ 
+
+Was ist das Tool? 
+
+Ein maßgeschneidertes Intranet-Reservierungssystem, entwickelt als SharePoint Framework Web Part, das den Mitarbeiterinnen und Mitarbeitern der Regierungsverwaltung ermöglicht, Ressourcen zentral über das bestehende Microsoft-365-Ökosystem zu buchen – ohne externe Softwarelizenzen. 
+
+ 
+ 
+
+Projektziel 
+
+Ablösung manueller Buchungsprozesse durch eine vollintegrierte Lösung im Behördenintranet für die Reservierung von Besprechungsräumen, Fahrzeugen und Präsentationstechnik – inklusive Genehmigungsworkflow, rollenbasiertem Berechtigungskonzept und Live-Kalenderansicht. 
+
+ 
+ 
+
+Meine Beiträge 
+
+Entwicklung einer komplexen Service-Architektur in TypeScript mit separaten Services für Raum-, Fahrzeug- und Gerätereservierungen, Nutzer- und Berechtigungsverwaltung sowie Standorte 
+
+Rollenbasiertes Berechtigungskonzept mit konfigurierbarer Aktionskontrolle für Rollen wie Intranetnutzer, Veranstaltungsmanagement u.a. – inklusive dynamischer Laufzeitprüfung 
+
+Kalenderkomponente mit Monats-, Wochen-, Tages- und Agenda-Ansicht (react-big-calendar), personalisierbarer Nutzeransicht und Suchfunktion 
+
+Parsing wiederkehrender Ereignisse aus dem SharePoint-Kalenderformat (XML-Rekurrenzregeln), inkl. Ausnahmen und Serienlöschungen 
+
+Verfügbarkeitsprüfung mit korrekter Ausfilterung abgelehnter Reservierungen (Bugfix & Feature) 
+
+Durchgängiges Refactoring für Wartbarkeit: Auslagerung von Logik in Services, einheitliche Interfaces, bereinigte Komponentenstruktur 
+
+ 
+ 
+
+Wirkung 
+
+Durch diese Eigenentwicklung konnte die Behörde den gesamten Ressourcenbuchungsprozess intern und DSGVO-konform im bestehenden Microsoft-365-Ökosystem abbilden – ohne Drittanbieter-Tools. Das System wird täglich von Mitarbeitenden der gesamten Verwaltung genutzt. 
+
+ 
+ 
+
+Kurzfassung für LinkedIn / CV: 
+
+Entwicklung und Weiterentwicklung eines SharePoint Framework (SPFx) Web Parts zur Verwaltung von Raum-, Fahrzeug- und Gerätereservierungen für eine Regierungsverwaltung in Belgien. Technologien: TypeScript, React, Fluent UI, PnP.js, Microsoft 365. Schwerpunkte: Service-Architektur, rollenbasierte Berechtigungen, Kalenderintegration, Parsing wiederkehrender Ereignisse, Verfügbarkeitsprüfung. 
+

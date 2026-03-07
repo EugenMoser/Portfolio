@@ -1,190 +1,204 @@
-const strings = {
-  sectionTitle: {
-    aboutMe: "Über mich",
-    certifications: "Zertifikate",
-    contact: "Kontakt",
-    education: "Bildung",
-    resume: "Lebenslauf",
+const data = {
+  hero: {
+    name: "Eugen Moser",
+    title: "React & Next.js Developer",
+    subtitle: "TypeScript · Tailwind CSS · Fullstack",
+    location: "Isny im Allgäu",
+    email: "job@eugen-moser.com",
+    github: "https://github.com/eugen-moser",
+    linkedin: "https://linkedin.com/in/eugen-moser",
   },
 
-  aboutMeText: `React / Next.js Webentwickler mit Fokus auf skalierbare, saubere und wartbare Fullstack-Lösungen. Ich entwickle Anwendungen nicht „featuregetrieben“, sondern problemgetrieben: klare Anforderungen, saubere Architektur, messbarer Mehrwert.
+  about: `React / Next.js Webentwickler mit Fokus auf skalierbare, saubere und wartbare Fullstack-Lösungen. Ich entwickle Anwendungen problemgetrieben: klare Anforderungen, saubere Architektur, messbarer Mehrwert.
 
-  Mein technischer Schwerpunkt liegt auf React, Next.js (App Router), TypeScript und modernen Fullstack-Architekturen mit Server Actions, Authentifizierung, Datenbanken (MongoDB / SQL via Prisma) und sauberem State-Management. Ich lege hohen Wert auf Codequalität, Performance, Security und langfristige Wartbarkeit – kein Schnellschuss-Code, der in sechs Monaten Probleme macht.
+Mein technischer Schwerpunkt liegt auf React, Next.js (App Router), TypeScript und modernen Fullstack-Architekturen – Server Actions, Authentifizierung, Datenbankanbindung via Prisma und sauberem State-Management. Ich lege hohen Wert auf Codequalität, Performance und langfristige Wartbarkeit.
 
-  Was mich von vielen Entwicklern unterscheidet:
-  Ich verbinde unternehmerisches Denken mit technischer Präzision. Durch meine frühere Laufbahn im kaufmännischen Umfeld verstehe ich Prozesse, Abhängigkeiten und Stakeholder – und übersetze Business-Anforderungen effizient in stabile Software. Ich denke in Systemen, nicht in Komponenten.
+Was mich unterscheidet: Ich verbinde unternehmerisches Denken mit technischer Präzision. Durch meine frühere kaufmännische Laufbahn verstehe ich Prozesse, Stakeholder und Business-Anforderungen – und übersetze sie effizient in stabile Software.`,
 
-  Beruflich habe ich in Enterprise-Umgebungen mit tausenden Nutzern gearbeitet (SharePoint / SPFx), APIs erweitert, Legacy-Code stabilisiert und moderne React-Frontends aufgebaut. Gleichzeitig entwickle ich eigenständig moderne Next.js-Fullstack-Projekte, setze Authentifizierung, Datenmodelle, CI-nahe Workflows und saubere Projektstrukturen um.`,
-
-  resume: {
-    experienceTitle: "Praktische Erfahrung",
-    experience: [
-      {
-        period: `2023 - heute`,
-        position: `Junior Developer (Schwerpunkt Microsoft SharePoint)`,
-        company: `CONET Technologies Holding GmbH`,
-        details: [
-          "Entwicklung von SharePoint-Lösungen mit Framework SPFx",
-          "Einsatz von Power Automate und Power Apps",
-        ],
-      },
-      {
-        period: `2022 – 2022`,
-        position: `Trainee Web Development`,
-        company: `neue fische – School and Pool für Digital Talent`,
-        details: [
-          "Intensiv-Coding-Bootcamp in Vollzeit",
-          "540 Stunden Programmierpraxis mit Eigenentwicklung einer Web App als Abschlussarbeit",
-          "Angewandte Technologien und Tools: HTML5, CSS3, JavaScript, React, Next.js, Node.js, npm, Storybook, MongoDB, Git, GitHub",
-        ],
-      },
-      {
-        period: `2021 – 2022`,
-        position: `Chassis-Disponent`,
-        company: `Dethleffs GmbH & Co. KG`,
-        details: [
-          "Ermittlung des Bedarfs an Chassis",
-          "Bestellung der Chassis beim Hersteller",
-          "Chassis-Eingangsbuchung",
-        ],
-      },
-      {
-        period: `2021 – 2021`,
-        position: `Kaufmännischer Angestellter im Controlling`,
-        company: `Walter Seitz GmbH & Co. KG`,
-        details: [
-          "Aufbereitung von Kennzahlen für die Geschäfts- und Vertriebsleitung",
-          "Auswertungen für den Bereich Vertrieb und After-Sales",
-          "Entwicklung neuer Auswertungen in Excel",
-          "Monatliche Auswertung und Analyse des Betriebsergebnisses",
-        ],
-      },
-      {
-        period: `2006 – 2020`,
-        position: `Verkaufsabwicklung / Automobilkaufmann`,
-        company: `Weber + Seitz GmbH`,
-        details: [
-          "Externe und interne Koordination und Organisation im Vertrieb",
-          "Auftrags- und Rechnungserstellung für Fahrzeuge und Zubehör",
-          "Abwicklung von Finanzierungs- und Leasingverträgen",
-          "Verwaltung der Stammdaten und Fahrzeugdaten",
-          "Inserieren von Fahrzeugen auf diversen Online-Plattformen",
-          "Beauftragung und Organisation externer Dienstleister (Fotografen, Gutachter, Fahrzeugaufbereiter, Fahrzeugbekleber)",
-        ],
-      },
-    ],
-    continuingEducationTitle: "Weiterbildung",
-    continuingEducation: [
-      {
-        period: `2010 – 2013`,
-        position: `Geprüfter Wirtschaftsfachwirt (Bachelor Professional of Business)`,
-        company: `IHK Schwaben`,
-        details: [
-          "Betriebswirtschaftslehre",
-          "Volkswirtschaftslehre",
-          "Recht (BGB, HGB, Wettbewerbsrecht, Arbeitsrecht)",
-          "Betriebliches Rechnungswesen, Investition, Finanzierung und Controlling",
-          "Führung und Zusammenarbeit im Unternehmen",
-          "Betriebliches Management",
-          "Marketing und Vertrieb",
-          "Logistik",
-          "Steuer",
-        ],
-      },
-      {
-        period: `Oktober 2013`,
-        position: `Ausbildung der Ausbilder (AdA)`,
-        company: `IHK Schwaben`,
-        details: [
-          "Nachweis zur Vermittlung der berufs- und arbeitspädagogischen Fertigkeiten, Kenntnisse und Fähigkeiten nach dem Berufsbildungsgesetz",
-        ],
-      },
-    ],
-    vocationalEducationTitle: "Berufsausbildung",
-    vocationalEducation: [
-      {
-        period: `2003 – 2006`,
-        position: `Automobilkaufmann`,
-        company: `Humpisschule Ravensburg, Kaufmännische Berufsschule`,
-        details: [],
-      },
-    ],
-
-    communityServiceTitle: "Zivieldienst",
-    communityService: [
-      {
-        period: `2002 – 2003`,
-        position: `Krankentransport`,
-        company: `KAP in Wangen`,
-        details: ["Ausbildung zum Rettungsdiensthelfer"],
-      },
-    ],
-    graduationTitle: "Schulabschluss",
-    graduation: [
-      {
-        period: `2000 – 2002`,
-        position: `Fachabitur / Fachhochschulreife und Staatlich geprüfter Wirtschaftsassistent`,
-        company: `Berufliches Schulzentrum Wangen, Berufskolleg Wirtschaftsinformatik`,
-        details: [],
-      },
-    ],
-  },
-  certifications: [
-    {
-      name: `ITIL® 4 Foundation (PeopleCert)`,
-      link: `https://www.linkedin.com/in/eugen-moser/details/certifications/1714120003654/single-media-viewer/?profileId=ACoAACviTdMBMDUILrpUMpI-0E_J4J6x82fs4CY`,
-    },
-    {
-      name: `Professional Scrum Master I (Scrum.org)`,
-      link: `https://www.credly.com/badges/209b3aa3-700c-44f4-b2fa-baf525ab6569/public_url`,
-    },
-    {
-      name: `Microsoft 365 Certified: Fundamentials (Microsoft)`,
-      link: `https://www.linkedin.com/in/eugen-moser/details/certifications/1707384542261/single-media-viewer/?profileId=ACoAACviTdMBMDUILrpUMpI-0E_J4J6x82fs4CY`,
-    },
-  ],
-  education: [
-    {
-      name: `IT-Bootcamp (neuefische)`,
-      link: `https://www.linkedin.com/in/eugen-moser/details/certifications/1720299471327/single-media-viewer/?profileId=ACoAACviTdMBMDUILrpUMpI-0E_J4J6x82fs4CY`,
-    },
-    {
-      name: `Bachelor Professional of Business (IHK Schwaben)`,
-      link: `https://www.linkedin.com/in/eugen-moser/details/certifications/1720299399582/single-media-viewer/?profileId=ACoAACviTdMBMDUILrpUMpI-0E_J4J6x82fs4CY`,
-    },
-    {
-      name: `Ausbildung der Ausbilder (IHK Schwaben)`,
-      link: `https://www.linkedin.com/in/eugen-moser/details/certifications/1720299352602/single-media-viewer/?profileId=ACoAACviTdMBMDUILrpUMpI-0E_J4J6x82fs4CY`,
-    },
-  ],
   skills: [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Tailwind CSS",
-    "Node.js",
-    "MongoDB",
-    "Git",
-    "SharePoint",
-    "Power Automate",
-    "SPFx",
-    "Docker",
+    {
+      category: "Frontend",
+      items: [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "JavaScript",
+        "Tailwind CSS",
+        "HTML5",
+        "CSS3",
+        "Fluent UI",
+        "SCSS",
+        "Styled Components",
+      ],
+    },
+    {
+      category: "Backend & Cloud",
+      items: [
+        "Node.js",
+        "C# / .NET",
+        "Azure",
+        "Azure DevOps",
+        "Power Automate",
+        "Microsoft Graph API",
+        "REST API",
+        "PowerShell",
+      ],
+    },
+    {
+      category: "Datenbank",
+      items: ["MongoDB", "Microsoft SQL", "MySQL", "Prisma ORM"],
+    },
+    {
+      category: "Tools",
+      items: ["Git", "GitHub", "Docker", "CI/CD", "Jest", "NextAuth"],
+    },
+    {
+      category: "Methodik",
+      items: ["Scrum (PSM I)", "Kanban", "Agile", "Unit-Tests"],
+    },
   ],
+
+  experience: [
+    {
+      period: "02/2023 – heute",
+      position: "React Softwareentwickler / Web Developer",
+      company: "Conet Deutschland GmbH",
+      description:
+        "Entwicklung und Weiterentwicklung moderner Unternehmensanwendungen mit React, TypeScript und dem Microsoft-Ökosystem (M365, Azure). Agile Scrum-Teams, direkter Kundenkontakt, von der Anforderungsanalyse bis zum Deployment.",
+      details: [
+        "SharePoint-Ressourcenbuchungs-App – Kalenderintegration (react-big-calendar), Verfügbarkeitsprüfung, dynamische Formularlogik, Power Automate · TypeScript, React, Fluent UI",
+        "@-Mentioning-Feature inkl. Regex-Parsing & Live-Vorschläge aus Active Directory via Microsoft Graph API",
+        "Microsoft Teams App (Tabs & Bots) für Benachrichtigungen und Deep-Linking",
+        "Analyse & Bugfix kritischer C#-API-Fehler + Microsoft SQL Server Performance-Optimierungen",
+        "Zwei HR-Formularsysteme: wiederverwendbare Komponenten, Drag-and-Drop, kontextbezogene Validierung, Service-Schicht, PowerShell-Deployment",
+        "Vue.js → React/TypeScript Migration inkl. WCAG-Barrierefreiheit, Mehrsprachigkeit & CI/CD via Azure DevOps",
+      ],
+      tags: ["React", "TypeScript", "Fluent UI", "Azure", "Graph API", "SharePoint", "C#"],
+    },
+    {
+      period: "05/2024 – 05/2025",
+      position: "Elternzeit & Fullstack-Projektstudium",
+      company: "Eigenverantwortliches Lernen",
+      description:
+        "Eigenständige Vertiefung moderner Fullstack-Technologien durch reale Projekte außerhalb des Berufsalltags.",
+      details: [
+        "Next.js Fullstack-Projekt: Server Actions, REST API-Design, MongoDB-Integration (Prisma ORM), NextAuth-Authentifizierung",
+        "Unit-Tests mit Jest, Middleware, API-Routen, saubere Projektstruktur",
+      ],
+      tags: ["Next.js", "TypeScript", "MongoDB", "Prisma", "NextAuth", "Jest"],
+    },
+    {
+      period: "09/2022 – 12/2022",
+      position: "Web Developer – IT-Bootcamp",
+      company: "neuefische GmbH",
+      description:
+        "540h Intensivausbildung in modernen Webtechnologien. Abschlussprojekt: eigenständige Fullstack Web-App.",
+      details: [
+        "HTML, CSS, JavaScript, React, Next.js, Node.js, MongoDB, Jest, Git/GitHub",
+      ],
+      tags: ["React", "Next.js", "Node.js", "MongoDB"],
+    },
+  ],
+
   projects: [
     {
-      title: "Portfolio Website",
+      title: "Ressourcenbuchungssystem – Belgische Regierung",
       description:
-        "Ein modernes, performantes Portfolio mit Next.js 16, Tailwind CSS und Bento-Grid Layout.",
-      tags: ["Next.js", "React", "Tailwind"],
+        "Maßgeschneidertes Intranet-Reservierungssystem für Besprechungsräume, Fahrzeuge und Präsentationstechnik – vollständig im Microsoft-365-Ökosystem ohne Drittanbieter.",
+      bullets: [
+        "Service-Architektur in TypeScript mit separaten Services für Räume, Fahrzeuge, Geräte, Nutzer & Berechtigungen",
+        "Kalenderkomponente (react-big-calendar) mit Monats-, Wochen-, Tages- und Agenda-Ansicht",
+        "Rollenbasiertes Berechtigungskonzept mit konfigurierbarer Aktionskontrolle und dynamischer Laufzeitprüfung",
+        "Parsing wiederkehrender Ereignisse aus SharePoint-XML-Rekurrenzregeln inkl. Ausnahmen",
+        "Verfügbarkeitsprüfung, Bugfixing und Refactoring für langfristige Wartbarkeit",
+      ],
+      tags: ["React", "TypeScript", "SPFx", "Fluent UI", "PnP.js", "REST API"],
+      period: "2023 – heute",
       link: "#",
     },
     {
-      title: "Abschlussarbeit Web App",
+      title: "HR Onboarding Form Customizer",
       description:
-        "Individuelle Entwicklung einer Web Applikation im Rahmen des Coding Bootcamps.",
-      tags: ["React", "MongoDB", "Node.js"],
+        "Eigenverantwortlich entwickelter SharePoint Form Customizer für das digitale Mitarbeiter-Onboarding – von der Konzeption bis zum Deployment.",
+      bullets: [
+        "Vollständige Formulararchitektur inkl. dynamischer Abfrage von SharePoint-Listenfeldern",
+        "Wiederverwendbare Eingabekomponenten: Text, ComboBox, RichText, Mehrfachauswahl",
+        "Drag-and-Drop-Sortierung von Einträgen, kontextbezogene Fehleranzeigen, Lade-Indikatoren",
+        "Service-Schicht für saubere Trennung von Geschäftslogik und UI",
+        "PowerShell-Deployment-Skript zur automatischen Verknüpfung via PnP",
+      ],
+      tags: ["React", "TypeScript", "SPFx", "Fluent UI", "PnP PowerShell"],
+      period: "2025",
       link: "#",
+    },
+    {
+      title: "Enterprise Collaboration & Notification System",
+      description:
+        "Firmeninterne Kommunikationslösung für kontextbezogene Diskussionen auf SharePoint-Seiten mit intelligenter Benachrichtigungslogik in Microsoft Teams.",
+      bullets: [
+        "@-Mention-Feature mit Regex-Parsing und Live-Benutzervorschlägen aus dem Active Directory via Graph API",
+        "Microsoft Teams App (Tabs & Bots) für Benachrichtigungen und Deep-Linking auf Inhalte",
+        "UI-Modernisierung mit Fluent UI für natives M365 Look & Feel",
+        "CI/CD-Management und Versionsmanagement via Azure DevOps",
+      ],
+      tags: ["React", "TypeScript", "SPFx", "Graph API", "Azure", "Fluent UI"],
+      period: "2023 – heute",
+      link: "#",
+    },
+    {
+      title: "Bazam – Regionaler Marktplatz",
+      description:
+        "Eigenentwicklung eines regionalen Online-Marktplatzes als Next.js Fullstack App.",
+      bullets: [
+        "Next.js App Router mit Server Actions und REST API-Design",
+        "MongoDB-Integration via Prisma ORM, NextAuth-Authentifizierung",
+        "Unit-Tests mit Jest, saubere Projektstruktur und Middleware",
+      ],
+      tags: ["Next.js", "React", "TypeScript", "Styled Components", "MongoDB", "Prisma", "Jest"],
+      period: "2024/2025",
+      link: "#",
+    },
+    {
+      title: "Baumann-Entwicklungen – Website v2",
+      description:
+        "Vollständiger Fullstack-Aufbau einer Unternehmenswebsite von A bis Z.",
+      bullets: [
+        "NextAuth-Authentifizierung mit Middleware und geschützten API-Routen",
+        "Datenbankmodelle und CRUD-Operationen via Prisma ORM + MongoDB",
+        "Tailwind CSS Design-System, responsive Layout",
+      ],
+      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Prisma", "MongoDB", "NextAuth"],
+      period: "2024",
+      link: "#",
+    },
+  ],
+
+  certifications: [
+    {
+      name: "Microsoft Certified: Azure Fundamentals",
+      issuer: "Microsoft",
+      date: "Juli 2025",
+      link: "/certificates/Certification_AZ-900-Microsoft-Conet.pdf",
+    },
+    {
+      name: "Professional Scrum Master I (PSM I)",
+      issuer: "Scrum.org",
+      date: "März 2024",
+      link: "/certificates/Certification_Professional-Scrum-Master-I-Scrum.org.pdf",
+    },
+    {
+      name: "ITIL 4 Foundation Certificate",
+      issuer: "PeopleCert / AXELOS",
+      date: "April 2024",
+      link: "/certificates/Certification_ITIL4-Foundation-PeopleCert.pdf",
+    },
+    {
+      name: "Microsoft 365 Certified: Fundamentals",
+      issuer: "Microsoft",
+      date: "Februar 2024",
+      link: "/certificates/Certification_MS-900-Microsoft.pdf",
     },
   ],
 };
-export { strings };
+
+export { data };
