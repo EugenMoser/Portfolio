@@ -85,58 +85,6 @@ export function PortfolioGrid() {
         </div>
       </section>
 
-      {/* Experience */}
-      <section id="experience">
-        <SectionHeading>Erfahrung</SectionHeading>
-        <div className="flex flex-col">
-          {data.experience.map((exp, i) => (
-            <div key={i} className="flex gap-5">
-              <div className="flex flex-col items-center pt-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-neutral-600 flex-shrink-0" />
-                {i < data.experience.length - 1 && (
-                  <div className="w-px flex-1 bg-neutral-800 mt-2 mb-0" />
-                )}
-              </div>
-              <div className="pb-10 flex-1">
-                <div className="flex items-baseline justify-between gap-2">
-                  <h3 className="font-semibold text-neutral-100 text-sm">
-                    {exp.position}
-                  </h3>
-                  <span className="text-xs text-neutral-600 flex-shrink-0">
-                    {exp.period}
-                  </span>
-                </div>
-                <span className="text-xs text-neutral-500">{exp.company}</span>
-                <p className="text-xs text-neutral-500 mt-2 leading-relaxed">
-                  {exp.description}
-                </p>
-                <ul className="mt-3 flex flex-col gap-1.5">
-                  {exp.details.map((detail, j) => (
-                    <li
-                      key={j}
-                      className="text-xs text-neutral-500 flex gap-2 leading-relaxed"
-                    >
-                      <span className="text-neutral-700 flex-shrink-0 mt-0.5">▸</span>
-                      {detail}
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex flex-wrap gap-1.5 mt-3">
-                  {exp.tags.map((tag: string) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2 py-0.5 rounded bg-neutral-800/80 text-neutral-500"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Projects */}
       <section id="projects">
         <SectionHeading>Projekte</SectionHeading>

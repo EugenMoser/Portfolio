@@ -6,8 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 const navLinks = [
   { id: "about-me", label: "Über mich" },
   { id: "skills", label: "Tech Stack" },
-  { id: "experience", label: "Erfahrung" },
-  { id: "projects", label: "Projekte" },
+{ id: "projects", label: "Projekte" },
   { id: "certifications", label: "Zertifikate" },
   { id: "contact", label: "Kontakt" },
 ];
