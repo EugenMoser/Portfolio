@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import {
+  usePathname,
+  useRouter,
+} from "next/navigation";
 
 const navLinks = [
   { id: "about-me", label: "Über mich" },
   { id: "skills", label: "Tech Stack" },
-{ id: "projects", label: "Projekte" },
+  { id: "projects", label: "Projekte" },
   { id: "certifications", label: "Zertifikate" },
   { id: "contact", label: "Kontakt" },
 ];
@@ -24,10 +27,10 @@ export default function Navigation(): React.JSX.Element {
   }
 
   return (
-    <nav className="border-r border-neutral-800 bg-neutral-900/40">
+    <nav className="fixed h-full w-[250px] shrink-0 border-r border-neutral-800 bg-neutral-900/40">
       <div className="sticky top-0 flex h-screen flex-col gap-8 p-6">
-        <Link href="/" className="block group">
-          <div className="text-sm font-bold leading-snug text-neutral-100 group-hover:text-white transition-colors">
+        <Link href="/" className="group block">
+          <div className="text-sm font-bold leading-snug text-neutral-100 transition-colors group-hover:text-white">
             Eugen Moser
           </div>
           <p className="mt-1 text-xs text-neutral-600">React · Next.js · TS</p>

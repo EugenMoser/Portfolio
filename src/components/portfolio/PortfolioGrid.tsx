@@ -1,4 +1,8 @@
-import { ExternalLink, Mail, MapPin } from "lucide-react";
+import {
+  ExternalLink,
+  Mail,
+  MapPin,
+} from "lucide-react";
 import Image from "next/image";
 
 import { data } from "../../data/portfolio";
@@ -216,7 +220,7 @@ export function PortfolioGrid() {
             className="flex items-center gap-2 text-sm text-neutral-400 transition-colors hover:text-neutral-100"
           >
             <GithubIcon className="h-4 w-4" />
-            github.com/eugen-moser
+            github.com/EugenMoser
           </a>
           <a
             href={data.hero.linkedin}

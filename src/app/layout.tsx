@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 
 import type { Metadata } from "next";
 
+import Footer from "@/components/Footer";
 import Navigation from "@/components/navigation/Navigation";
 
 //mono font einbinden los
@@ -17,9 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body className="relative grid grid-cols-[200px_1fr] bg-[var(--color-background)] text-[var(--color-text-primary)] antialiased">
+      <body className="relative flex bg-[var(--color-background)] text-[var(--color-text-primary)] antialiased">
         <Navigation />
-        {children}
+        <div className="flex-1">
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );
