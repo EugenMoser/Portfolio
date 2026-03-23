@@ -24,8 +24,8 @@ export default function Navigation(): React.JSX.Element {
   }
 
   return (
-    <nav className="sticky top-0 h-screen border-r border-neutral-800 bg-neutral-900/40">
-      <div className="flex h-full flex-col gap-8 p-6">
+    <nav className="border-r border-neutral-800 bg-neutral-900/40">
+      <div className="sticky top-0 flex h-screen flex-col gap-8 p-6">
         <Link href="/" className="block group">
           <div className="text-sm font-bold leading-snug text-neutral-100 group-hover:text-white transition-colors">
             Eugen Moser

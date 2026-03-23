@@ -1,6 +1,6 @@
 export default function Impressum() {
   return (
-    <div className="mx-auto max-w-2xl px-8 py-12">
+    <main className="mx-auto max-w-2xl px-8 py-12">
       <h1 className="mb-8 text-2xl font-bold text-neutral-100">Impressum</h1>
 
       <section className="mb-8">
@@ -62,6 +62,6 @@ export default function Impressum() {
           derartige Links umgehend entfernen.
         </p>
       </section>
-    </div>
+    </main>
   );
 }
