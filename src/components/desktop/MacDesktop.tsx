@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import type { SectionId } from "@/types/portfolio";
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import Menubar from "./Menubar";
 import FinderWindow from "./FinderWindow";
 import Dock from "./Dock";
+import Spotlight from "./Spotlight";
 
 export default function MacDesktop() {
   const [history, setHistory] = useState<SectionId[]>(["about"]);
@@ -14,6 +16,8 @@ export default function MacDesktop() {
   const [spotlightOpen, setSpotlightOpen] = useState(false);
 
   const activeSection = history[historyIndex];
+  const canGoBack = historyIndex > 0;
+  const canGoForward = historyIndex < history.length - 1;
 
   function navigate(id: SectionId) {
     if (id === activeSection) {
@@ -27,12 +31,21 @@ export default function MacDesktop() {
   }
 
   function goBack() {
-    if (historyIndex > 0) setHistoryIndex((i) => i - 1);
+    if (canGoBack) setHistoryIndex((i) => i - 1);
   }
 
   function goForward() {
-    if (historyIndex < history.length - 1) setHistoryIndex((i) => i + 1);
+    if (canGoForward) setHistoryIndex((i) => i + 1);
   }
+
+  useKeyboardShortcuts({
+    onNavigate: navigate,
+    onBack: goBack,
+    onForward: goForward,
+    onSpotlight: () => setSpotlightOpen(true),
+    canGoBack,
+    canGoForward,
+  });
 
   return (
     <div
@@ -48,26 +61,38 @@ export default function MacDesktop() {
         onCloseWindow={() => setWindowOpen(false)}
         onSpotlight={() => setSpotlightOpen(true)}
       />
+
       <AnimatePresence>
         {windowOpen && (
           <FinderWindow
             key="finder"
             activeSection={activeSection}
             onSelect={navigate}
-            canGoBack={historyIndex > 0}
-            canGoForward={historyIndex < history.length - 1}
+            canGoBack={canGoBack}
+            canGoForward={canGoForward}
             onBack={goBack}
             onForward={goForward}
             onClose={() => setWindowOpen(false)}
           />
         )}
       </AnimatePresence>
+
       <Dock
         active={activeSection}
         onSelect={navigate}
         windowOpen={windowOpen}
         onOpenWindow={() => setWindowOpen(true)}
       />
+
+      <AnimatePresence>
+        {spotlightOpen && (
+          <Spotlight
+            key="spotlight"
+            onClose={() => setSpotlightOpen(false)}
+            onNavigate={(id) => { navigate(id); setSpotlightOpen(false); }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
