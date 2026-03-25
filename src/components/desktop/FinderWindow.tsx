@@ -1,4 +1,5 @@
 import type { SectionId } from "@/types/portfolio";
+import { data } from "@/data/portfolio";
 import FinderSidebar from "./FinderSidebar";
 import FinderContent from "./FinderContent";
 
@@ -9,6 +10,15 @@ const SECTION_LABELS: Record<SectionId, string> = {
   experience: "Experience",
   certificates: "Certificates",
   contact: "Contact",
+};
+
+const SECTION_STATUS: Record<SectionId, string> = {
+  about: "1 item",
+  projects: `${data.projects.length} items`,
+  skills: `${data.skills.length} categories, ${data.skills.reduce((acc, c) => acc + c.items.length, 0)} items`,
+  experience: `${data.experience.length} items`,
+  certificates: `${data.certifications.length} items`,
+  contact: "4 items",
 };
 
 interface Props {
@@ -101,7 +111,7 @@ export default function FinderWindow({ activeSection, onSelect }: Props) {
           borderTop: "1px solid rgba(0,0,0,0.15)",
         }}
       >
-        <span className="text-[10px] text-gray-500">6 items</span>
+        <span className="text-[10px] text-gray-500">{SECTION_STATUS[activeSection]}</span>
       </div>
     </div>
   );
