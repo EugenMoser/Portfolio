@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import type { SectionId } from "@/types/portfolio";
 import Menubar from "./Menubar";
 import FinderWindow from "./FinderWindow";
@@ -9,14 +10,19 @@ import Dock from "./Dock";
 export default function MacDesktop() {
   const [history, setHistory] = useState<SectionId[]>(["about"]);
   const [historyIndex, setHistoryIndex] = useState(0);
+  const [windowOpen, setWindowOpen] = useState(true);
 
   const activeSection = history[historyIndex];
 
   function navigate(id: SectionId) {
-    if (id === activeSection) return;
+    if (id === activeSection) {
+      if (!windowOpen) setWindowOpen(true);
+      return;
+    }
     const newHistory = history.slice(0, historyIndex + 1);
     setHistory([...newHistory, id]);
     setHistoryIndex(newHistory.length);
+    if (!windowOpen) setWindowOpen(true);
   }
 
   function goBack() {
@@ -35,15 +41,26 @@ export default function MacDesktop() {
       }}
     >
       <Menubar />
-      <FinderWindow
-        activeSection={activeSection}
+      <AnimatePresence>
+        {windowOpen && (
+          <FinderWindow
+            key="finder"
+            activeSection={activeSection}
+            onSelect={navigate}
+            canGoBack={historyIndex > 0}
+            canGoForward={historyIndex < history.length - 1}
+            onBack={goBack}
+            onForward={goForward}
+            onClose={() => setWindowOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+      <Dock
+        active={activeSection}
         onSelect={navigate}
-        canGoBack={historyIndex > 0}
-        canGoForward={historyIndex < history.length - 1}
-        onBack={goBack}
-        onForward={goForward}
+        windowOpen={windowOpen}
+        onOpenWindow={() => setWindowOpen(true)}
       />
-      <Dock active={activeSection} onSelect={navigate} />
     </div>
   );
 }
