@@ -71,7 +71,7 @@ export function PortfolioGrid() {
       <section id="skills">
         <SectionHeading>Tech Stack</SectionHeading>
         <div className="flex flex-col gap-3">
-          {data.skills.map((group) => (
+          {data.skills.map((group: { category: string; items: string[] }) => (
             <div key={group.category} className="flex items-start gap-4">
               <span className="w-28 flex-shrink-0 pt-1.5 text-xs text-neutral-600">
                 {group.category}

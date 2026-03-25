@@ -1,4 +1,6 @@
-const data = {
+import type { PortfolioData } from '@/types/portfolio';
+
+const data: PortfolioData = {
   hero: {
     name: "Eugen Moser",
     title: "React & Next.js Developer",
