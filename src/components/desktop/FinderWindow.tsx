@@ -11,8 +11,8 @@ const MENUBAR_H = 28;
 const DOCK_H = 80;
 const PADDING = 16;
 const TITLEBAR_H = 28;
-const MIN_WIDTH = 560;
-const MIN_HEIGHT = 360;
+const MIN_WIDTH = 320;
+const MIN_HEIGHT = 300;
 
 const SECTION_LABELS: Record<SectionId, string> = {
   about: "About",
@@ -91,7 +91,24 @@ export default function FinderWindow({
     const h = window.innerHeight - MENUBAR_H - DOCK_H - PADDING * 2;
     setSize({ width: w, height: h });
     savedSize.current = { width: w, height: h };
-  }, []);
+
+    function handleResize() {
+      const maxW = window.innerWidth - PADDING * 2;
+      const maxH = window.innerHeight - MENUBAR_H - DOCK_H - PADDING * 2;
+      setSize((prev) => ({
+        width: Math.min(prev.width, maxW),
+        height: Math.min(prev.height, maxH),
+      }));
+      // Clamp position so window stays in viewport
+      const curX = x.get();
+      const curY = y.get();
+      if (curX > 0) x.set(Math.min(curX, maxW / 2));
+      if (curY > 0) y.set(Math.min(curY, maxH / 2));
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [x, y]);
 
   function toggleShade() {
     if (maximized) setMaximized(false);
