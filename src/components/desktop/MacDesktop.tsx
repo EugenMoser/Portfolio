@@ -11,6 +11,7 @@ export default function MacDesktop() {
   const [history, setHistory] = useState<SectionId[]>(["about"]);
   const [historyIndex, setHistoryIndex] = useState(0);
   const [windowOpen, setWindowOpen] = useState(true);
+  const [spotlightOpen, setSpotlightOpen] = useState(false);
 
   const activeSection = history[historyIndex];
 
@@ -40,7 +41,13 @@ export default function MacDesktop() {
         background: "linear-gradient(180deg, #1d5fb5 0%, #4a90d9 50%, #6ab0f0 100%)",
       }}
     >
-      <Menubar />
+      <Menubar
+        onNavigate={navigate}
+        windowOpen={windowOpen}
+        onOpenWindow={() => setWindowOpen(true)}
+        onCloseWindow={() => setWindowOpen(false)}
+        onSpotlight={() => setSpotlightOpen(true)}
+      />
       <AnimatePresence>
         {windowOpen && (
           <FinderWindow
