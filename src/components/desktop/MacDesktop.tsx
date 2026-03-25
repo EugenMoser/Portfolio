@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import type { SectionId } from "@/types/portfolio";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
@@ -9,8 +9,22 @@ import Menubar from "./Menubar";
 import FinderWindow from "./FinderWindow";
 import Dock from "./Dock";
 import Spotlight from "./Spotlight";
+import MobileLayout from "./MobileLayout";
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return isMobile;
+}
 
 export default function MacDesktop() {
+  const isMobile = useIsMobile();
   const [history, setHistory] = useState<SectionId[]>(["about"]);
   const [historyIndex, setHistoryIndex] = useState(0);
   const [windowOpen, setWindowOpen] = useState(true);
@@ -49,6 +63,10 @@ export default function MacDesktop() {
     canGoBack,
     canGoForward,
   });
+
+  if (isMobile) {
+    return <MobileLayout active={activeSection} onSelect={navigate} />;
+  }
 
   return (
     <div
