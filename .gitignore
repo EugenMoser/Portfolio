@@ -41,3 +41,6 @@ next-env.d.ts
 
 # copilot instructions
 .github/*
+
+# brainstorm / AI working dir
+.superpowers/
