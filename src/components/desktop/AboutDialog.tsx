@@ -32,7 +32,7 @@ export default function AboutDialog({ onClose }: Props) {
       >
         {/* Titlebar */}
         <div
-          className="w-full flex items-center justify-center relative"
+          className="relative flex w-full items-center justify-center"
           style={{
             height: 28,
             background: "linear-gradient(180deg, #e8e8e8 0%, #d0d0d0 100%)",
@@ -41,26 +41,33 @@ export default function AboutDialog({ onClose }: Props) {
         >
           <button
             onClick={onClose}
-            className="absolute left-3 flex items-center justify-center w-3 h-3 rounded-full"
+            className="absolute left-3 flex h-3 w-3 items-center justify-center rounded-full"
             style={{ background: "#ff5f57", border: "1px solid #e0443e" }}
           />
-          <span className="text-[12px] font-semibold text-gray-600">About This Mac</span>
+          <span className="text-[12px] font-semibold text-gray-600">
+            About This Mac
+          </span>
         </div>
 
         {/* Content */}
-        <div className="flex flex-col items-center px-8 py-6 gap-3 w-full">
+        <div className="flex w-full flex-col items-center gap-3 px-8 py-6">
           {/* OS Icon */}
-          <div className="text-6xl mb-1">🖥️</div>
+          <div className="mb-1 text-6xl">🖥️</div>
 
           <div className="text-center">
-            <p className="text-[18px] font-bold text-gray-800">Portfolio OS X</p>
+            <p className="text-[18px] font-bold text-gray-800">
+              Portfolio OS X
+            </p>
             <p className="text-[12px] text-gray-500">Version 10.4.11 (Tiger)</p>
           </div>
 
           {/* Specs */}
           <div
-            className="w-full rounded-lg p-4 mt-1"
-            style={{ background: "rgba(255,255,255,0.6)", border: "1px solid rgba(0,0,0,0.1)" }}
+            className="mt-1 w-full rounded-lg p-4"
+            style={{
+              background: "rgba(255,255,255,0.6)",
+              border: "1px solid rgba(0,0,0,0.1)",
+            }}
           >
             <table className="w-full text-[12px]">
               <tbody>
@@ -69,30 +76,34 @@ export default function AboutDialog({ onClose }: Props) {
                   ["Memory", "∞ GB Kaffee"],
                   ["Startup Disk", "brain.local"],
                   ["Graphics", "Radeon Pro Ehrgeiz 8 GB"],
-                  ["Serial Number", "EUGEN-MOSER-2025"],
+                  ["Serial Number", "EUGEN-MOSER-2026"],
                 ].map(([label, value]) => (
                   <tr key={label}>
-                    <td className="text-gray-500 pr-4 py-0.5 text-right w-1/2">{label}:</td>
-                    <td className="text-gray-800 font-medium">{value}</td>
+                    <td className="w-1/2 py-0.5 pr-4 text-right text-gray-500">
+                      {label}:
+                    </td>
+                    <td className="font-medium text-gray-800">{value}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          <p className="text-[10px] text-gray-400 text-center leading-relaxed">
-            © 2025 Eugen Moser. Alle Rechte vorbehalten.<br />
+          <p className="text-center text-[10px] leading-relaxed text-gray-400">
+            © 2026 Eugen Moser. Alle Rechte vorbehalten.
+            <br />
             Dieses Portfolio enthält keine echten Mac-Geheimnisse.
           </p>
 
           {/* OK Button */}
           <button
             onClick={onClose}
-            className="mt-1 px-8 py-1.5 rounded text-[13px] font-medium text-white"
+            className="mt-1 rounded px-8 py-1.5 text-[13px] font-medium text-white"
             style={{
               background: "linear-gradient(180deg, #7ab0e8 0%, #4a7fc1 100%)",
               border: "1px solid #3a6fa1",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.3)",
+              boxShadow:
+                "0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.3)",
             }}
           >
             OK
