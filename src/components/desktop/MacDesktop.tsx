@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import type { SectionId } from "@/types/portfolio";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
+import { useDeepLink } from "@/hooks/useDeepLink";
 import Menubar from "./Menubar";
 import FinderWindow from "./FinderWindow";
 import Dock from "./Dock";
@@ -37,6 +38,8 @@ export default function MacDesktop() {
   function goForward() {
     if (canGoForward) setHistoryIndex((i) => i + 1);
   }
+
+  useDeepLink({ onNavigate: navigate, activeSection });
 
   useKeyboardShortcuts({
     onNavigate: navigate,
