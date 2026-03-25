@@ -7,7 +7,25 @@ import FinderWindow from "./FinderWindow";
 import Dock from "./Dock";
 
 export default function MacDesktop() {
-  const [activeSection, setActiveSection] = useState<SectionId>("about");
+  const [history, setHistory] = useState<SectionId[]>(["about"]);
+  const [historyIndex, setHistoryIndex] = useState(0);
+
+  const activeSection = history[historyIndex];
+
+  function navigate(id: SectionId) {
+    if (id === activeSection) return;
+    const newHistory = history.slice(0, historyIndex + 1);
+    setHistory([...newHistory, id]);
+    setHistoryIndex(newHistory.length);
+  }
+
+  function goBack() {
+    if (historyIndex > 0) setHistoryIndex((i) => i - 1);
+  }
+
+  function goForward() {
+    if (historyIndex < history.length - 1) setHistoryIndex((i) => i + 1);
+  }
 
   return (
     <div
@@ -17,8 +35,15 @@ export default function MacDesktop() {
       }}
     >
       <Menubar />
-      <FinderWindow activeSection={activeSection} onSelect={setActiveSection} />
-      <Dock active={activeSection} onSelect={setActiveSection} />
+      <FinderWindow
+        activeSection={activeSection}
+        onSelect={navigate}
+        canGoBack={historyIndex > 0}
+        canGoForward={historyIndex < history.length - 1}
+        onBack={goBack}
+        onForward={goForward}
+      />
+      <Dock active={activeSection} onSelect={navigate} />
     </div>
   );
 }

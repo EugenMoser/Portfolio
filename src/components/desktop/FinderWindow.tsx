@@ -24,9 +24,13 @@ const SECTION_STATUS: Record<SectionId, string> = {
 interface Props {
   activeSection: SectionId;
   onSelect: (id: SectionId) => void;
+  canGoBack: boolean;
+  canGoForward: boolean;
+  onBack: () => void;
+  onForward: () => void;
 }
 
-export default function FinderWindow({ activeSection, onSelect }: Props) {
+export default function FinderWindow({ activeSection, onSelect, canGoBack, canGoForward, onBack, onForward }: Props) {
   return (
     <div
       className="flex flex-col mx-auto"
@@ -74,14 +78,28 @@ export default function FinderWindow({ activeSection, onSelect }: Props) {
         }}
       >
         <button
-          className="px-2 py-0.5 rounded text-[11px] text-gray-600 border border-gray-300 bg-white/60 hover:bg-white/90 transition-colors"
-          style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.1)" }}
+          onClick={onBack}
+          disabled={!canGoBack}
+          className="px-2 py-0.5 rounded text-[11px] border transition-colors disabled:opacity-30 disabled:cursor-default"
+          style={{
+            boxShadow: canGoBack ? "0 1px 2px rgba(0,0,0,0.1)" : "none",
+            background: canGoBack ? "rgba(255,255,255,0.6)" : "transparent",
+            borderColor: canGoBack ? "rgb(209,213,219)" : "transparent",
+            color: canGoBack ? "rgb(75,85,99)" : "rgb(156,163,175)",
+          }}
         >
           ‹
         </button>
         <button
-          className="px-2 py-0.5 rounded text-[11px] text-gray-600 border border-gray-300 bg-white/60 hover:bg-white/90 transition-colors"
-          style={{ boxShadow: "0 1px 2px rgba(0,0,0,0.1)" }}
+          onClick={onForward}
+          disabled={!canGoForward}
+          className="px-2 py-0.5 rounded text-[11px] border transition-colors disabled:opacity-30 disabled:cursor-default"
+          style={{
+            boxShadow: canGoForward ? "0 1px 2px rgba(0,0,0,0.1)" : "none",
+            background: canGoForward ? "rgba(255,255,255,0.6)" : "transparent",
+            borderColor: canGoForward ? "rgb(209,213,219)" : "transparent",
+            color: canGoForward ? "rgb(75,85,99)" : "rgb(156,163,175)",
+          }}
         >
           ›
         </button>
