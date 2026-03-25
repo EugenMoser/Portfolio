@@ -1,10 +1,5 @@
-import Footer from "@/components/Footer";
-import { PortfolioGrid } from "@/components/portfolio/PortfolioGrid";
+import MacDesktop from "@/components/desktop/MacDesktop";
 
 export default function Home() {
-  return (
-    <main className="min-h-screen bg-[var(--color-background)]">
-      <PortfolioGrid />
-    </main>
-  );
+  return <MacDesktop />;
 }
