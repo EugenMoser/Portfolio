@@ -7,25 +7,30 @@ type SendState = "idle" | "sending" | "sent" | "error";
 
 export default function ContactSection() {
   const { hero } = data;
-  const [subject, setSubject] = useState("");
+  const [email, setEmail] = useState("");
   const [body, setBody] = useState("");
   const [sendState, setSendState] = useState<SendState>("idle");
 
   async function handleSend() {
-    if (!subject.trim() && !body.trim()) return;
+    if (!email.trim() || !body.trim()) return;
     setSendState("sending");
-    // mailto fallback — öffnet lokalen E-Mail-Client
-    const mailto = `mailto:${hero.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
-    // Nach kurzer Verzögerung als "sent" markieren
-    setTimeout(() => setSendState("sent"), 800);
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email.trim(), message: body.trim() }),
+    });
+
+    setSendState(res.ok ? "sent" : "error");
   }
 
   function handleNew() {
-    setSubject("");
+    setEmail("");
     setBody("");
     setSendState("idle");
   }
+
+  const canSend = email.trim().length > 0 && body.trim().length > 0;
 
   return (
     <div className="flex flex-col h-full" style={{ background: "#f0f0f0" }}>
@@ -42,7 +47,7 @@ export default function ContactSection() {
           emoji="📤"
           label="Senden"
           onClick={handleSend}
-          disabled={sendState === "sending" || sendState === "sent" || (!subject.trim() && !body.trim())}
+          disabled={sendState === "sending" || sendState === "sent" || !canSend}
           primary
         />
         <MailToolbarButton emoji="📎" label="Anhang" onClick={() => {}} disabled />
@@ -59,16 +64,15 @@ export default function ContactSection() {
           borderBottom: "1px solid rgba(0,0,0,0.12)",
         }}
       >
-        <HeaderField label="Von:" value={`${hero.name} <${hero.email}>`} readOnly />
-        <div style={{ height: 1, background: "rgba(0,0,0,0.08)", margin: "0 12px" }} />
         <HeaderField label="An:" value={hero.email} readOnly />
         <div style={{ height: 1, background: "rgba(0,0,0,0.08)", margin: "0 12px" }} />
         <HeaderField
-          label="Betreff:"
-          value={subject}
-          onChange={setSubject}
-          placeholder="Betreff eingeben…"
+          label="Von:"
+          value={email}
+          onChange={setEmail}
+          placeholder="deine@email.com"
           readOnly={sendState === "sent"}
+          type="email"
         />
       </div>
 
@@ -79,7 +83,7 @@ export default function ContactSection() {
             <span className="text-4xl">📨</span>
             <p className="text-[14px] font-medium text-gray-700">Nachricht gesendet!</p>
             <p className="text-[12px] text-gray-500 text-center max-w-xs">
-              Dein E-Mail-Client wurde geöffnet. Die Nachricht wurde vorbereitet.
+              Ich melde mich so bald wie möglich bei dir.
             </p>
             <button
               onClick={handleNew}
@@ -91,6 +95,25 @@ export default function ContactSection() {
               }}
             >
               Neue Nachricht
+            </button>
+          </div>
+        ) : sendState === "error" ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+            <span className="text-4xl">⚠️</span>
+            <p className="text-[14px] font-medium text-gray-700">Fehler beim Senden</p>
+            <p className="text-[12px] text-gray-500 text-center max-w-xs">
+              Bitte versuche es erneut oder schreib direkt an {hero.email}.
+            </p>
+            <button
+              onClick={() => setSendState("idle")}
+              className="mt-2 px-4 py-1.5 rounded text-[12px] font-medium text-white"
+              style={{
+                background: "linear-gradient(180deg, #7ab0e8 0%, #4a7fc1 100%)",
+                border: "1px solid #3a6fa1",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
+              }}
+            >
+              Erneut versuchen
             </button>
           </div>
         ) : (
@@ -156,9 +179,10 @@ function MailToolbarButton({
       disabled={disabled}
       className="flex flex-col items-center gap-0.5 px-2 py-1 rounded transition-colors disabled:opacity-40 disabled:cursor-default"
       style={{
-        background: primary && !disabled
-          ? "linear-gradient(180deg, #7ab0e8 0%, #4a7fc1 100%)"
-          : "linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(220,220,220,0.8) 100%)",
+        background:
+          primary && !disabled
+            ? "linear-gradient(180deg, #7ab0e8 0%, #4a7fc1 100%)"
+            : "linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(220,220,220,0.8) 100%)",
         border: primary && !disabled ? "1px solid #3a6fa1" : "1px solid rgba(0,0,0,0.15)",
         boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
         minWidth: 52,
@@ -185,12 +209,14 @@ function HeaderField({
   onChange,
   placeholder,
   readOnly,
+  type = "text",
 }: {
   label: string;
   value: string;
   onChange?: (v: string) => void;
   placeholder?: string;
   readOnly?: boolean;
+  type?: string;
 }) {
   return (
     <div className="flex items-center" style={{ minHeight: 28, padding: "0 12px" }}>
@@ -204,13 +230,12 @@ function HeaderField({
         <span className="text-[12px] text-gray-800 ml-2 truncate">{value}</span>
       ) : (
         <input
-          type="text"
+          type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className="flex-1 ml-2 text-[12px] text-gray-800 outline-none bg-transparent"
           style={{ fontFamily: "system-ui, sans-serif" }}
-          readOnly={readOnly}
         />
       )}
     </div>
