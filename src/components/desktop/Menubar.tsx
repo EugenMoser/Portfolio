@@ -85,9 +85,10 @@ interface Props {
   onOpenWindow: () => void;
   onCloseWindow: () => void;
   onSpotlight: () => void;
+  onOpenLegal: (type: "impressum" | "datenschutz") => void;
 }
 
-export default function Menubar({ onNavigate, windowOpen, onOpenWindow, onCloseWindow, onSpotlight }: Props) {
+export default function Menubar({ onNavigate, windowOpen, onOpenWindow, onCloseWindow, onSpotlight, onOpenLegal }: Props) {
   const [time, setTime] = useState("");
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [showAbout, setShowAbout] = useState(false);
@@ -243,6 +244,14 @@ export default function Menubar({ onNavigate, windowOpen, onOpenWindow, onCloseW
               )}
             </AnimatePresence>
           </div>
+
+          {/* Legal */}
+          <span style={menuLabelStyle} onClick={() => onOpenLegal("impressum")}>
+            Impressum
+          </span>
+          <span style={menuLabelStyle} onClick={() => onOpenLegal("datenschutz")}>
+            Datenschutz
+          </span>
         </div>
 
         {/* Right: clock + spotlight */}

@@ -12,6 +12,7 @@ import Dock from "./Dock";
 import Spotlight from "./Spotlight";
 import MobileLayout from "./MobileLayout";
 import CertificateWindow from "./CertificateWindow";
+import LegalWindow from "./LegalWindow";
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -32,6 +33,7 @@ export default function MacDesktop() {
   const [windowOpen, setWindowOpen] = useState(true);
   const [spotlightOpen, setSpotlightOpen] = useState(false);
   const [certWindow, setCertWindow] = useState<{ url: string; title: string } | null>(null);
+  const [legalWindow, setLegalWindow] = useState<"impressum" | "datenschutz" | null>(null);
 
   const activeSection = history[historyIndex];
   const canGoBack = historyIndex > 0;
@@ -85,6 +87,7 @@ export default function MacDesktop() {
           onOpenWindow={() => setWindowOpen(true)}
           onCloseWindow={() => setWindowOpen(false)}
           onSpotlight={() => setSpotlightOpen(true)}
+          onOpenLegal={setLegalWindow}
         />
 
         <AnimatePresence>
@@ -126,6 +129,16 @@ export default function MacDesktop() {
               url={certWindow.url}
               title={certWindow.title}
               onClose={() => setCertWindow(null)}
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {legalWindow && (
+            <LegalWindow
+              key="legal"
+              type={legalWindow}
+              onClose={() => setLegalWindow(null)}
             />
           )}
         </AnimatePresence>

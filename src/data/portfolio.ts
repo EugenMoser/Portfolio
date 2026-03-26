@@ -1,4 +1,4 @@
-import type { PortfolioData } from '@/types/portfolio';
+import type { PortfolioData } from "@/types/portfolio";
 
 const data: PortfolioData = {
   hero: {
@@ -7,7 +7,7 @@ const data: PortfolioData = {
     subtitle: "TypeScript · Tailwind CSS · Fullstack",
     location: "Isny im Allgäu",
     email: "job@eugen-moser.com",
-    github: "https://github.com/eugen-moser",
+    github: "https://github.com/eugenmoser",
     linkedin: "https://linkedin.com/in/eugen-moser",
   },
 
@@ -52,7 +52,15 @@ Was mich unterscheidet: Ich verbinde unternehmerisches Denken mit technischer Pr
     },
     {
       category: "Tools",
-      items: ["Git", "GitHub", "Docker", "CI/CD", "Jest", "NextAuth"],
+      items: [
+        "Git",
+        "GitHub",
+        "GitHub Actions",
+        "Docker",
+        "CI/CD",
+        "Jest",
+        "NextAuth",
+      ],
     },
     {
       category: "Methodik",
