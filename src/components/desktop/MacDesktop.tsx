@@ -34,6 +34,7 @@ export default function MacDesktop() {
   const [spotlightOpen, setSpotlightOpen] = useState(false);
   const [certWindow, setCertWindow] = useState<{ url: string; title: string } | null>(null);
   const [legalWindow, setLegalWindow] = useState<"impressum" | "datenschutz" | null>(null);
+  const [shaded, setShaded] = useState(false);
 
   const activeSection = history[historyIndex];
   const canGoBack = historyIndex > 0;
@@ -41,13 +42,13 @@ export default function MacDesktop() {
 
   function navigate(id: SectionId) {
     if (id === activeSection) {
-      if (!windowOpen) setWindowOpen(true);
+      if (!windowOpen) { setWindowOpen(true); setShaded(false); }
       return;
     }
     const newHistory = history.slice(0, historyIndex + 1);
     setHistory([...newHistory, id]);
     setHistoryIndex(newHistory.length);
-    if (!windowOpen) setWindowOpen(true);
+    if (!windowOpen) { setWindowOpen(true); setShaded(false); }
   }
 
   function goBack() {
@@ -65,8 +66,10 @@ export default function MacDesktop() {
     onBack: goBack,
     onForward: goForward,
     onSpotlight: () => setSpotlightOpen(true),
+    onMinimize: () => setShaded((s) => !s),
     canGoBack,
     canGoForward,
+    windowOpen,
   });
 
   if (isMobile) {
@@ -84,8 +87,9 @@ export default function MacDesktop() {
         <Menubar
           onNavigate={navigate}
           windowOpen={windowOpen}
-          onOpenWindow={() => setWindowOpen(true)}
+          onOpenWindow={() => { setWindowOpen(true); setShaded(false); }}
           onCloseWindow={() => setWindowOpen(false)}
+          onMinimize={() => setShaded((s) => !s)}
           onSpotlight={() => setSpotlightOpen(true)}
           onOpenLegal={setLegalWindow}
         />
@@ -101,6 +105,8 @@ export default function MacDesktop() {
               onBack={goBack}
               onForward={goForward}
               onClose={() => setWindowOpen(false)}
+              shaded={shaded}
+              onToggleShade={() => setShaded((s) => !s)}
             />
           )}
         </AnimatePresence>
@@ -109,7 +115,7 @@ export default function MacDesktop() {
           active={activeSection}
           onSelect={navigate}
           windowOpen={windowOpen}
-          onOpenWindow={() => setWindowOpen(true)}
+          onOpenWindow={() => { setWindowOpen(true); setShaded(false); }}
         />
 
         <AnimatePresence>
