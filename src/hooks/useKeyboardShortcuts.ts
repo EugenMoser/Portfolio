@@ -15,8 +15,10 @@ interface Options {
   onBack: () => void;
   onForward: () => void;
   onSpotlight: () => void;
+  onMinimize: () => void;
   canGoBack: boolean;
   canGoForward: boolean;
+  windowOpen: boolean;
 }
 
 export function useKeyboardShortcuts({
@@ -24,19 +26,26 @@ export function useKeyboardShortcuts({
   onBack,
   onForward,
   onSpotlight,
+  onMinimize,
   canGoBack,
   canGoForward,
+  windowOpen,
 }: Options) {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       const isMeta = e.metaKey || e.ctrlKey;
       const tag = (e.target as HTMLElement).tagName;
-      // Don't fire shortcuts when typing in inputs/textareas
       if (tag === "INPUT" || tag === "TEXTAREA") return;
 
       if (isMeta && e.key === " ") {
         e.preventDefault();
         onSpotlight();
+        return;
+      }
+
+      if (isMeta && e.key === "m") {
+        e.preventDefault();
+        if (windowOpen) onMinimize();
         return;
       }
 
@@ -61,5 +70,5 @@ export function useKeyboardShortcuts({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onNavigate, onBack, onForward, onSpotlight, canGoBack, canGoForward]);
+  }, [onNavigate, onBack, onForward, onSpotlight, onMinimize, canGoBack, canGoForward, windowOpen]);
 }
