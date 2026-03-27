@@ -40,6 +40,8 @@ interface Props {
   onBack: () => void;
   onForward: () => void;
   onClose: () => void;
+  shaded: boolean;
+  onToggleShade: () => void;
 }
 
 function TrafficLight({
@@ -75,12 +77,12 @@ export default function FinderWindow({
   activeSection, onSelect,
   canGoBack, canGoForward, onBack, onForward,
   onClose,
+  shaded, onToggleShade,
 }: Props) {
   const dragControls = useDragControls();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const [shaded, setShaded] = useState(false);
   const [maximized, setMaximized] = useState(false);
   const [size, setSize] = useState({ width: 960, height: 500 });
   const savedSize = useRef({ width: 960, height: 500 });
@@ -110,11 +112,6 @@ export default function FinderWindow({
     return () => window.removeEventListener("resize", handleResize);
   }, [x, y]);
 
-  function toggleShade() {
-    if (maximized) setMaximized(false);
-    setShaded((s) => !s);
-  }
-
   function toggleMaximize() {
     if (maximized) {
       setSize(savedSize.current);
@@ -131,7 +128,7 @@ export default function FinderWindow({
       x.set(0);
       y.set(0);
       setMaximized(true);
-      setShaded(false);
+      if (shaded) onToggleShade(); // unshade when maximizing
     }
   }
 
@@ -202,7 +199,7 @@ export default function FinderWindow({
           {/* Traffic lights */}
           <div className="flex items-center gap-1.5 mr-4">
             <TrafficLight bg="#ff5f57" border="#e0443e" symbol="×" onClick={onClose} />
-            <TrafficLight bg="#ffbd2e" border="#dea123" symbol="−" onClick={toggleShade} />
+            <TrafficLight bg="#ffbd2e" border="#dea123" symbol="−" onClick={onToggleShade} />
             <TrafficLight bg="#28c840" border="#1aab29" symbol="+" onClick={toggleMaximize} />
           </div>
 
