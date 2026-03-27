@@ -42,13 +42,15 @@ export default function MacDesktop() {
 
   function navigate(id: SectionId) {
     if (id === activeSection) {
-      if (!windowOpen) { setWindowOpen(true); setShaded(false); }
+      if (!windowOpen) { setWindowOpen(true); }
+      setShaded(false);
       return;
     }
     const newHistory = history.slice(0, historyIndex + 1);
     setHistory([...newHistory, id]);
     setHistoryIndex(newHistory.length);
-    if (!windowOpen) { setWindowOpen(true); setShaded(false); }
+    if (!windowOpen) { setWindowOpen(true); }
+    setShaded(false);
   }
 
   function goBack() {
