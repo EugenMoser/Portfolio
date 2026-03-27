@@ -75,7 +75,7 @@ export default function AboutDialog({ onClose }: Props) {
                   ["Processor", "Motivation™ Core, 3.2 GHz"],
                   ["Memory", "∞ GB Kaffee"],
                   ["Startup Disk", "brain.local"],
-                  ["Graphics", "Radeon Pro Ehrgeiz 8 GB"],
+                  ["Graphics", "Radeon Pro Ehrgeiz 42b GB"],
                   ["Serial Number", "EUGEN-MOSER-2026"],
                 ].map(([label, value]) => (
                   <tr key={label}>
