@@ -87,14 +87,18 @@ export default function FinderWindow({
 
   const [maximized, setMaximized] = useState(false);
   const [size, setSize] = useState({ width: 960, height: 500 });
+  const [resizingActive, setResizingActive] = useState(false);
   const savedSize = useRef({ width: 960, height: 500 });
   const savedPos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const w = Math.min(960, window.innerWidth - PADDING * 2);
     const h = window.innerHeight - MENUBAR_H - DOCK_H - PADDING * 2;
+    const initialX = Math.max(0, (window.innerWidth - w) / 2);
     setSize({ width: w, height: h });
     savedSize.current = { width: w, height: h };
+    savedPos.current = { x: initialX, y: 0 };
+    x.set(initialX);
 
     function handleResize() {
       const maxW = window.innerWidth - PADDING * 2;
@@ -127,7 +131,7 @@ export default function FinderWindow({
         width: window.innerWidth - PADDING * 2,
         height: window.innerHeight - MENUBAR_H - DOCK_H - PADDING * 2,
       });
-      x.set(0);
+      x.set(PADDING);
       y.set(0);
       setMaximized(true);
       if (shaded) onToggleShade(); // unshade when maximizing
@@ -142,6 +146,7 @@ export default function FinderWindow({
       e.preventDefault();
       e.stopPropagation();
       if (maximized || shaded) return;
+      setResizingActive(true);
       resizeStart.current = {
         ex: e.clientX, ey: e.clientY,
         w: size.width, h: size.height,
@@ -172,6 +177,7 @@ export default function FinderWindow({
       }
       function onUp() {
         resizeStart.current = null;
+        setResizingActive(false);
         window.removeEventListener('pointermove', onMove);
         window.removeEventListener('pointerup', onUp);
       }
@@ -190,8 +196,8 @@ export default function FinderWindow({
       dragElastic={0}
       dragMomentum={false}
       dragConstraints={{ top: 0, left: -3000, right: 3000, bottom: 3000 }}
-      style={{ x, y, marginTop: MENUBAR_H + PADDING, position: "relative" }}
-      className="mx-auto"
+      style={{ x, y, marginTop: MENUBAR_H + PADDING, position: "relative", width: size.width }}
+      className=""
       exit={{ scale: 0.88, opacity: 0, y: 30, transition: { duration: 0.18 } }}
     >
       {/* Window shell */}
@@ -204,7 +210,7 @@ export default function FinderWindow({
           boxShadow: "0 20px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(0,0,0,0.25)",
           display: "flex",
           flexDirection: "column",
-          transition: "width 0.22s ease, height 0.22s ease",
+          transition: resizingActive ? "none" : "width 0.22s ease, height 0.22s ease",
         }}
       >
         {/* Titlebar — drag handle */}
