@@ -82,14 +82,16 @@ function DropdownMenu({ items, style }: { items: MenuItemProps[]; style?: React.
 interface Props {
   onNavigate: (id: SectionId) => void;
   windowOpen: boolean;
+  shaded: boolean;
   onOpenWindow: () => void;
   onCloseWindow: () => void;
   onMinimize: () => void;
   onSpotlight: () => void;
   onOpenLegal: (type: "impressum" | "datenschutz") => void;
+  onFinderClick: () => void;
 }
 
-export default function Menubar({ onNavigate, windowOpen, onOpenWindow, onCloseWindow, onMinimize, onSpotlight, onOpenLegal }: Props) {
+export default function Menubar({ onNavigate, windowOpen, shaded, onOpenWindow, onCloseWindow, onMinimize, onSpotlight, onOpenLegal, onFinderClick }: Props) {
   const [time, setTime] = useState("");
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [showAbout, setShowAbout] = useState(false);
@@ -184,7 +186,12 @@ export default function Menubar({ onNavigate, windowOpen, onOpenWindow, onCloseW
           </div>
 
           {/* Finder */}
-          <span style={{ ...menuLabelStyle, fontWeight: 700 }}>Finder</span>
+          <span
+            style={{ ...menuLabelStyle, fontWeight: 700, cursor: (!windowOpen || shaded) ? "pointer" : "default" }}
+            onClick={onFinderClick}
+          >
+            Finder
+          </span>
 
           {/* Go menu */}
           <div className="relative h-full flex items-center">

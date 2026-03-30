@@ -61,6 +61,11 @@ export default function MacDesktop() {
     if (canGoForward) setHistoryIndex((i) => i + 1);
   }
 
+  function handleFinderClick() {
+    if (!windowOpen) { setWindowOpen(true); setShaded(false); }
+    else if (shaded) { setShaded(false); }
+  }
+
   useDeepLink({ onNavigate: navigate, activeSection });
 
   useKeyboardShortcuts({
@@ -89,11 +94,13 @@ export default function MacDesktop() {
         <Menubar
           onNavigate={navigate}
           windowOpen={windowOpen}
+          shaded={shaded}
           onOpenWindow={() => { setWindowOpen(true); setShaded(false); }}
           onCloseWindow={() => setWindowOpen(false)}
           onMinimize={() => setShaded((s) => !s)}
           onSpotlight={() => setSpotlightOpen(true)}
           onOpenLegal={setLegalWindow}
+          onFinderClick={handleFinderClick}
         />
 
         <AnimatePresence>

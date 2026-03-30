@@ -45,5 +45,6 @@ next-env.d.ts
 # brainstorm / AI working dir
 .superpowers/
 .claude/settings.json
-
-docs
+ 
+ 
+ docs
