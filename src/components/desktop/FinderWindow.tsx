@@ -14,6 +14,8 @@ const TITLEBAR_H = 28;
 const MIN_WIDTH = 320;
 const MIN_HEIGHT = 300;
 
+type ResizeDirection = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
+
 const SECTION_LABELS: Record<SectionId, string> = {
   about: "About",
   projects: "Projects",
@@ -133,27 +135,49 @@ export default function FinderWindow({
   }
 
   // Resize handle
-  const resizeStart = useRef<{ ex: number; ey: number; w: number; h: number } | null>(null);
+  const resizeStart = useRef<{ ex: number; ey: number; w: number; h: number; px: number; py: number } | null>(null);
 
-  function onResizePointerDown(e: React.PointerEvent) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (maximized || shaded) return;
-    resizeStart.current = { ex: e.clientX, ey: e.clientY, w: size.width, h: size.height };
-    function onMove(ev: PointerEvent) {
-      if (!resizeStart.current) return;
-      setSize({
-        width: Math.max(MIN_WIDTH, resizeStart.current.w + ev.clientX - resizeStart.current.ex),
-        height: Math.max(MIN_HEIGHT, resizeStart.current.h + ev.clientY - resizeStart.current.ey),
-      });
-    }
-    function onUp() {
-      resizeStart.current = null;
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerup", onUp);
-    }
-    window.addEventListener("pointermove", onMove);
-    window.addEventListener("pointerup", onUp);
+  function startResize(direction: ResizeDirection) {
+    return (e: React.PointerEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (maximized || shaded) return;
+      resizeStart.current = {
+        ex: e.clientX, ey: e.clientY,
+        w: size.width, h: size.height,
+        px: x.get(), py: y.get(),
+      };
+      function onMove(ev: PointerEvent) {
+        const start = resizeStart.current;
+        if (!start) return;
+        const dX = ev.clientX - start.ex;
+        const dY = ev.clientY - start.ey;
+        let newW = start.w;
+        let newH = start.h;
+        let newX = start.px;
+        let newY = start.py;
+        if (direction.includes('e')) newW = Math.max(MIN_WIDTH, start.w + dX);
+        if (direction.includes('w')) {
+          newW = Math.max(MIN_WIDTH, start.w - dX);
+          newX = start.px + (start.w - newW);
+        }
+        if (direction.includes('s')) newH = Math.max(MIN_HEIGHT, start.h + dY);
+        if (direction.includes('n')) {
+          newH = Math.max(MIN_HEIGHT, start.h - dY);
+          newY = start.py + (start.h - newH);
+        }
+        setSize({ width: newW, height: newH });
+        if (direction.includes('w')) x.set(newX);
+        if (direction.includes('n')) y.set(newY);
+      }
+      function onUp() {
+        resizeStart.current = null;
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerup', onUp);
+      }
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+    };
   }
 
   const displayHeight = shaded ? TITLEBAR_H : size.height;
@@ -280,13 +304,20 @@ export default function FinderWindow({
         )}
       </div>
 
-      {/* Resize handle */}
+      {/* Resize handles — 4 corners + 4 edges */}
       {!shaded && !maximized && (
-        <div
-          onPointerDown={onResizePointerDown}
-          className="absolute bottom-0 right-0"
-          style={{ width: 16, height: 16, cursor: "se-resize", zIndex: 10 }}
-        />
+        <>
+          {/* Corners */}
+          <div onPointerDown={startResize('nw')} className="absolute top-0 left-0" style={{ width: 12, height: 12, cursor: 'nw-resize', zIndex: 11 }} />
+          <div onPointerDown={startResize('ne')} className="absolute top-0 right-0" style={{ width: 12, height: 12, cursor: 'ne-resize', zIndex: 11 }} />
+          <div onPointerDown={startResize('se')} className="absolute bottom-0 right-0" style={{ width: 12, height: 12, cursor: 'se-resize', zIndex: 11 }} />
+          <div onPointerDown={startResize('sw')} className="absolute bottom-0 left-0" style={{ width: 12, height: 12, cursor: 'sw-resize', zIndex: 11 }} />
+          {/* Edges */}
+          <div onPointerDown={startResize('n')} className="absolute top-0 left-3 right-3" style={{ height: 6, cursor: 'n-resize', zIndex: 10 }} />
+          <div onPointerDown={startResize('s')} className="absolute bottom-0 left-3 right-3" style={{ height: 6, cursor: 's-resize', zIndex: 10 }} />
+          <div onPointerDown={startResize('e')} className="absolute top-3 bottom-3 right-0" style={{ width: 6, cursor: 'e-resize', zIndex: 10 }} />
+          <div onPointerDown={startResize('w')} className="absolute top-3 bottom-3 left-0" style={{ width: 6, cursor: 'w-resize', zIndex: 10 }} />
+        </>
       )}
     </motion.div>
   );
