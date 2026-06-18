@@ -6,6 +6,10 @@ import { motion, useDragControls, useMotionValue } from "framer-motion";
 const MENUBAR_H = 28;
 const PADDING = 16;
 const TITLEBAR_H = 28;
+const MIN_WIDTH = 400;
+const MIN_HEIGHT = 300;
+
+type ResizeDirection = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
 
 function TrafficLight({
   bg, border, symbol, onClick,
@@ -41,9 +45,56 @@ export default function CertificateWindow({ url, title, onClose }: Props) {
   const x = useMotionValue(40);
   const y = useMotionValue(40);
   const [loading, setLoading] = useState(true);
+  const [size, setSize] = useState(() => ({
+    width: Math.min(900, window.innerWidth - PADDING * 4),
+    height: Math.min(620, window.innerHeight - MENUBAR_H - PADDING * 4),
+  }));
+  const [resizingActive, setResizingActive] = useState(false);
+  const resizeStart = useRef<{ ex: number; ey: number; w: number; h: number; px: number; py: number } | null>(null);
 
-  const winWidth = Math.min(900, window.innerWidth - PADDING * 4);
-  const winHeight = Math.min(620, window.innerHeight - MENUBAR_H - PADDING * 4);
+  function startResize(direction: ResizeDirection) {
+    return (e: React.PointerEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setResizingActive(true);
+      resizeStart.current = {
+        ex: e.clientX, ey: e.clientY,
+        w: size.width, h: size.height,
+        px: x.get(), py: y.get(),
+      };
+      function onMove(ev: PointerEvent) {
+        const start = resizeStart.current;
+        if (!start) return;
+        const dX = ev.clientX - start.ex;
+        const dY = ev.clientY - start.ey;
+        let newW = start.w;
+        let newH = start.h;
+        let newX = start.px;
+        let newY = start.py;
+        if (direction.includes('e')) newW = Math.max(MIN_WIDTH, start.w + dX);
+        if (direction.includes('w')) {
+          newW = Math.max(MIN_WIDTH, start.w - dX);
+          newX = start.px + (start.w - newW);
+        }
+        if (direction.includes('s')) newH = Math.max(MIN_HEIGHT, start.h + dY);
+        if (direction.includes('n')) {
+          newH = Math.max(MIN_HEIGHT, start.h - dY);
+          newY = start.py + (start.h - newH);
+        }
+        setSize({ width: newW, height: newH });
+        if (direction.includes('w')) x.set(newX);
+        if (direction.includes('n')) y.set(newY);
+      }
+      function onUp() {
+        resizeStart.current = null;
+        setResizingActive(false);
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerup', onUp);
+      }
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+    };
+  }
 
   return (
     <motion.div
@@ -53,7 +104,7 @@ export default function CertificateWindow({ url, title, onClose }: Props) {
       dragElastic={0}
       dragMomentum={false}
       dragConstraints={{ top: 0, left: -3000, right: 3000, bottom: 3000 }}
-      style={{ x, y, top: MENUBAR_H + PADDING, position: "fixed", zIndex: 200 }}
+      style={{ x, y, top: MENUBAR_H + PADDING, position: "fixed", zIndex: 200, width: size.width }}
       initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.88, opacity: 0, transition: { duration: 0.15 } }}
@@ -61,13 +112,14 @@ export default function CertificateWindow({ url, title, onClose }: Props) {
     >
       <div
         style={{
-          width: winWidth,
-          height: winHeight,
+          width: size.width,
+          height: size.height,
           borderRadius: 10,
           overflow: "hidden",
           boxShadow: "0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.25)",
           display: "flex",
           flexDirection: "column",
+          transition: resizingActive ? "none" : "width 0.22s ease, height 0.22s ease",
         }}
       >
         {/* Titlebar */}
@@ -132,6 +184,18 @@ export default function CertificateWindow({ url, title, onClose }: Props) {
           </a>
         </div>
       </div>
+
+      {/* Resize handles — 4 corners + 4 edges */}
+      <>
+        <div onPointerDown={startResize('nw')} className="absolute top-0 left-0" style={{ width: 12, height: 12, cursor: 'nw-resize', zIndex: 11 }} />
+        <div onPointerDown={startResize('ne')} className="absolute top-0 right-0" style={{ width: 12, height: 12, cursor: 'ne-resize', zIndex: 11 }} />
+        <div onPointerDown={startResize('se')} className="absolute bottom-0 right-0" style={{ width: 12, height: 12, cursor: 'se-resize', zIndex: 11 }} />
+        <div onPointerDown={startResize('sw')} className="absolute bottom-0 left-0" style={{ width: 12, height: 12, cursor: 'sw-resize', zIndex: 11 }} />
+        <div onPointerDown={startResize('n')} className="absolute top-0 left-3 right-3" style={{ height: 6, cursor: 'n-resize', zIndex: 10 }} />
+        <div onPointerDown={startResize('s')} className="absolute bottom-0 left-3 right-3" style={{ height: 6, cursor: 's-resize', zIndex: 10 }} />
+        <div onPointerDown={startResize('e')} className="absolute top-3 bottom-3 right-0" style={{ width: 6, cursor: 'e-resize', zIndex: 10 }} />
+        <div onPointerDown={startResize('w')} className="absolute top-3 bottom-3 left-0" style={{ width: 6, cursor: 'w-resize', zIndex: 10 }} />
+      </>
     </motion.div>
   );
 }
