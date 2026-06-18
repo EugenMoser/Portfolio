@@ -37,7 +37,7 @@ export default function CertificatesSection() {
                 🏅
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-[13px] font-semibold text-gray-800 truncate">{cert.name}</p>
+                <p className="text-[13px] font-semibold text-gray-800 leading-tight break-words">{cert.name}</p>
                 <p className="text-[11px] text-gray-500">
                   {cert.issuer} · {cert.date}
                 </p>
