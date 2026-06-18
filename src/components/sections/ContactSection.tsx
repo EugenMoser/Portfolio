@@ -9,6 +9,7 @@ export default function ContactSection() {
   const { hero } = data;
   const [email, setEmail] = useState("");
   const [body, setBody] = useState("");
+  const [company, setCompany] = useState(""); // Honeypot – bleibt leer für echte Nutzer
   const [sendState, setSendState] = useState<SendState>("idle");
 
   async function handleSend() {
@@ -18,7 +19,7 @@ export default function ContactSection() {
     const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email.trim(), message: body.trim() }),
+      body: JSON.stringify({ email: email.trim(), message: body.trim(), company }),
     });
 
     setSendState(res.ok ? "sent" : "error");
@@ -27,6 +28,7 @@ export default function ContactSection() {
   function handleNew() {
     setEmail("");
     setBody("");
+    setCompany("");
     setSendState("idle");
   }
 
@@ -75,6 +77,25 @@ export default function ContactSection() {
           type="email"
         />
       </div>
+
+      {/* Honeypot – für Menschen unsichtbar, fängt Bots ab */}
+      <input
+        type="text"
+        name="company"
+        value={company}
+        onChange={(e) => setCompany(e.target.value)}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          width: 1,
+          height: 1,
+          opacity: 0,
+          pointerEvents: "none",
+        }}
+      />
 
       {/* Body */}
       <div className="flex-1 relative" style={{ background: "white" }}>
