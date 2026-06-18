@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import type { SectionId } from "@/types/portfolio";
 import { data } from "@/data/portfolio";
@@ -135,6 +136,35 @@ export default function MobileLayout({ active, onSelect }: Props) {
             </button>
           );
         })}
+      </div>
+
+      {/* Legal footer */}
+      <div
+        className="flex items-center justify-center gap-2 flex-shrink-0"
+        style={{
+          background: "rgba(0,0,0,0.18)",
+          borderTop: "1px solid rgba(255,255,255,0.15)",
+          paddingTop: 7,
+          paddingBottom: "calc(7px + env(safe-area-inset-bottom))",
+        }}
+      >
+        <Link
+          href="/impressum"
+          className="text-white/70 active:text-white transition-colors"
+          style={{ fontSize: 11 }}
+        >
+          Impressum
+        </Link>
+        <span className="text-white/40" style={{ fontSize: 11 }}>
+          ·
+        </span>
+        <Link
+          href="/datenschutz"
+          className="text-white/70 active:text-white transition-colors"
+          style={{ fontSize: 11 }}
+        >
+          Datenschutz
+        </Link>
       </div>
     </div>
   );
