@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, useDragControls, useMotionValue } from "framer-motion";
-import { ImpressumContent, DatenschutzContent } from "./LegalContent";
+import { ImpressumContent, DatenschutzContent } from "@/components/legal/LegalContent";
 
 const MENUBAR_H = 28;
 const PADDING = 16;
@@ -97,7 +97,13 @@ export default function LegalWindow({ type, onClose }: Props) {
 
         {/* Scrollable content */}
         <div className="flex-1 overflow-y-auto" style={{ background: "#1e1e1e" }}>
-          {type === "impressum" ? <ImpressumContent /> : <DatenschutzContent />}
+          <div className="px-8 py-6 text-sm">
+            {type === "impressum" ? (
+              <ImpressumContent variant="window" />
+            ) : (
+              <DatenschutzContent variant="window" />
+            )}
+          </div>
         </div>
       </div>
     </motion.div>
