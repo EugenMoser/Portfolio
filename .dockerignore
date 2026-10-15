@@ -1,0 +1,17 @@
+.git
+.github
+node_modules
+.next
+out
+coverage
+.vercel
+.env*
+*.pem
+!.env.example
+.claude
+.superpowers
+docs
+CLAUDE.md
+*.log
+Dockerfile
+.dockerignore
