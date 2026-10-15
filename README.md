@@ -34,8 +34,7 @@ public/Portfolio-Image.png
 
 Die Seite läuft als Docker-Container (`Dockerfile`, Next.js `output: "standalone"`)
 auf einem VPS mit Coolify unter `https://portfolio.eugen-moser.com`. Coolify baut das
-Image aus dem Branch `main` und setzt die Umgebungsvariablen zur Laufzeit
-(Vorlage: `.env.example`):
+Image aus dem Branch `main` und setzt die Umgebungsvariablen zur Laufzeit:
 
 | Variable    | Inhalt                                                          |
 | ----------- | --------------------------------------------------------------- |

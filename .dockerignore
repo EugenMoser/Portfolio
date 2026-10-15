@@ -7,7 +7,6 @@ coverage
 .vercel
 .env*
 *.pem
-!.env.example
 .claude
 .superpowers
 docs
