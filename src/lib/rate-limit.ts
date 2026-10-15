@@ -1,3 +1,5 @@
+import { setInterval } from "node:timers";
+
 // In-memory limits for the contact endpoint. The site runs as a single
 // container on the VPS, so process-local state is enough. Counters reset on
 // restart; that is accepted.
@@ -9,12 +11,18 @@ export const MAX_PER_WINDOW = 5;
 export const DAILY_SEND_CAP = 50;
 
 const SWEEP_THRESHOLD = 1000;
+const SWEEP_INTERVAL_MS = 60 * 1000;
 
 export type RateLimitResult = { ok: true } | { ok: false; retryAfterSec: number };
 
 const hits = new Map<string, number[]>();
 let sendDay = "";
 let sendsToday = 0;
+
+// Drop expired keys even when no further requests arrive, so a client IP is
+// held for at most WINDOW_MS + SWEEP_INTERVAL_MS (11 minutes). unref() keeps
+// the timer from holding `next build` or a shutting-down server open.
+setInterval(() => sweep(Date.now()), SWEEP_INTERVAL_MS).unref();
 
 export function rateLimit(key: string, now: number = Date.now()): RateLimitResult {
   const recent = (hits.get(key) ?? []).filter((t) => now - t < WINDOW_MS);
