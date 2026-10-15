@@ -1,105 +1,146 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+import { z } from "zod";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { data } from "@/data/portfolio";
+import { Severity, toAppError, toLogPayload } from "@/lib/errors";
+import { sendContactMail } from "@/lib/mailer";
+import { rateLimit, reserveDailySend } from "@/lib/rate-limit";
+import {
+  MAX_BODY_BYTES,
+  checkSubmitTiming,
+  getClientIp,
+  isAllowedOrigin,
+  isJsonContentType,
+} from "@/lib/request-guards";
 
-// --- Limits ---
-const MAX_EMAIL_LENGTH = 254; // RFC 5321
-const MAX_MESSAGE_LENGTH = 5000;
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const INVALID_REQUEST = "Ungültige Anfrage.";
+const TOO_LARGE = "Die Anfrage ist zu groß.";
+const REQUIRED = "E-Mail und Nachricht sind erforderlich.";
+const INVALID_EMAIL = "Ungültige E-Mail-Adresse.";
+const SEND_FAILED = "E-Mail konnte nicht gesendet werden.";
 
-// --- Best-effort in-memory rate limit (pro Instanz, Reset bei Cold-Start) ---
-const RATE_LIMIT_MAX = 5; // Anfragen
-const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // pro 10 Minuten
-const hits = new Map<string, number[]>();
+const contactSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .min(1, REQUIRED)
+    .max(254, INVALID_EMAIL) // RFC 5321
+    // Also rejects line breaks, so the address cannot inject mail headers.
+    .email(INVALID_EMAIL),
+  message: z
+    .string()
+    .trim()
+    .min(1, REQUIRED)
+    .max(5000, "Nachricht ist zu lang (max. 5000 Zeichen)."),
+  // Honeypot: filled by bots, never by humans.
+  company: z.string().max(0).optional().or(z.literal("")),
+});
 
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const recent = (hits.get(ip) ?? []).filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
-  if (recent.length >= RATE_LIMIT_MAX) {
-    hits.set(ip, recent);
-    return true;
-  }
-  recent.push(now);
-  hits.set(ip, recent);
-  return false;
-}
-
-function getClientIp(req: NextRequest): string {
-  const fwd = req.headers.get("x-forwarded-for");
-  return fwd?.split(",")[0]?.trim() || "unknown";
+function error(message: string, status: number, headers?: HeadersInit) {
+  return NextResponse.json({ error: message }, { status, headers });
 }
 
 export async function POST(req: NextRequest) {
-  const ip = getClientIp(req);
-  if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: "Zu viele Anfragen. Bitte versuche es später erneut." },
-      { status: 429 },
-    );
+  // Header checks first: they cost nothing and run before any body is read.
+  // A non-JSON content type is what lets third-party pages post without a
+  // CORS preflight, so it is rejected outright.
+  if (!isJsonContentType(req.headers.get("content-type"))) {
+    return error(INVALID_REQUEST, 415);
+  }
+  if (!isAllowedOrigin(req.headers.get("origin"))) {
+    return error(INVALID_REQUEST, 403);
+  }
+  const declaredLength = Number(req.headers.get("content-length"));
+  if (!Number.isFinite(declaredLength) || declaredLength <= 0 || declaredLength > MAX_BODY_BYTES) {
+    return error(TOO_LARGE, 413);
+  }
+  const limit = rateLimit(getClientIp(req.headers));
+  if (!limit.ok) {
+    return error("Zu viele Anfragen. Bitte versuche es später erneut.", 429, {
+      "Retry-After": String(limit.retryAfterSec),
+    });
   }
 
   let body: unknown;
   try {
-    body = await req.json();
+    const raw = await req.text();
+    // Content-Length is client-supplied; re-check what actually arrived.
+    if (new TextEncoder().encode(raw).byteLength > MAX_BODY_BYTES) {
+      return error(TOO_LARGE, 413);
+    }
+    body = JSON.parse(raw);
   } catch {
-    return NextResponse.json({ error: "Ungültige Anfrage." }, { status: 400 });
+    return error(INVALID_REQUEST, 400);
   }
 
-  const { email, message, company } = (body ?? {}) as {
-    email?: unknown;
-    message?: unknown;
-    company?: unknown; // Honeypot
-  };
+  try {
+    const elapsedMs =
+      typeof body === "object" && body !== null && "elapsedMs" in body
+        ? (body as { elapsedMs: unknown }).elapsedMs
+        : undefined;
+    const timing = checkSubmitTiming(elapsedMs);
+    if (timing === "bot") {
+      // Same silent fake success as the honeypot, so bots don't adapt.
+      console.warn("[api/contact] request without valid elapsedMs treated as bot");
+      return NextResponse.json({ success: true });
+    }
+    if (timing === "too-fast") {
+      return error("Bitte warte einen Moment und versuche es erneut.", 429);
+    }
+    if (timing === "stale") {
+      return error(
+        "Das Fenster war zu lange geöffnet. Bitte lade die Seite neu und sende die Nachricht erneut.",
+        400,
+      );
+    }
 
-  // Honeypot: von Bots ausgefüllt, von Menschen nie. Still verwerfen, aber "Erfolg" melden.
-  if (typeof company === "string" && company.trim().length > 0) {
+    const parsed = contactSchema.safeParse(body);
+    if (!parsed.success) {
+      // Honeypot hit: silently pretend success so bots don't adapt.
+      const honeypotIssue = parsed.error.issues.find((issue) => issue.path[0] === "company");
+      if (honeypotIssue) {
+        return NextResponse.json({ success: true });
+      }
+      // Only our own German messages reach the user. invalid_type/invalid_value
+      // can't come from the real form and would leak Zod's English defaults.
+      const firstIssue = parsed.error.issues[0];
+      const message =
+        firstIssue && firstIssue.code !== "invalid_type" && firstIssue.code !== "invalid_value"
+          ? firstIssue.message
+          : INVALID_REQUEST;
+      return error(message, 400);
+    }
+
+    if (!reserveDailySend()) {
+      console.error("[api/contact] daily send cap reached");
+      return error(
+        `Das Formular ist heute nicht mehr erreichbar. Bitte schreib direkt an ${data.hero.email}.`,
+        503,
+      );
+    }
+
+    const { email, message } = parsed.data;
+
+    // Rejects on missing SMTP config and on every SMTP failure; handled below.
+    await sendContactMail({
+      replyTo: email,
+      subject: `[Portfolio] Neue Nachricht von ${email}`,
+      text: `Von: ${email}\n\n${message}`,
+    });
+
     return NextResponse.json({ success: true });
+  } catch (caught) {
+    // Mainly sendContactMail: invalid SMTP env (code `config`) or a refused or
+    // unreachable mail server (code `mail_send`). Its AppErrors carry only key
+    // names and SMTP status fields, never form data or credentials, so the
+    // payload is safe to log.
+    const appError = toAppError(caught, "Contact request failed");
+    const payload = toLogPayload(appError);
+    if (appError.severity === Severity.Error) {
+      console.error("[api/contact] request failed", payload);
+    } else {
+      console.warn("[api/contact] request failed", payload);
+    }
+    return error(SEND_FAILED, 500);
   }
-
-  if (typeof email !== "string" || typeof message !== "string") {
-    return NextResponse.json(
-      { error: "E-Mail und Nachricht sind erforderlich." },
-      { status: 400 },
-    );
-  }
-
-  const trimmedEmail = email.trim();
-  const trimmedMessage = message.trim();
-
-  if (!trimmedEmail || !trimmedMessage) {
-    return NextResponse.json(
-      { error: "E-Mail und Nachricht sind erforderlich." },
-      { status: 400 },
-    );
-  }
-
-  if (trimmedEmail.length > MAX_EMAIL_LENGTH || !EMAIL_REGEX.test(trimmedEmail)) {
-    return NextResponse.json({ error: "Ungültige E-Mail-Adresse." }, { status: 400 });
-  }
-
-  if (trimmedMessage.length > MAX_MESSAGE_LENGTH) {
-    return NextResponse.json(
-      { error: `Nachricht ist zu lang (max. ${MAX_MESSAGE_LENGTH} Zeichen).` },
-      { status: 400 },
-    );
-  }
-
-  const { error } = await resend.emails.send({
-    from: "Portfolio Contact <noreply@eugen-moser.com>",
-    to: "job@eugen-moser.com",
-    replyTo: trimmedEmail,
-    subject: `Neue Nachricht von ${trimmedEmail}`,
-    text: trimmedMessage,
-  });
-
-  if (error) {
-    console.error("Resend error:", error);
-    return NextResponse.json(
-      { error: "E-Mail konnte nicht gesendet werden." },
-      { status: 500 },
-    );
-  }
-
-  return NextResponse.json({ success: true });
 }

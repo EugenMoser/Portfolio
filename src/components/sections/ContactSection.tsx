@@ -1,9 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { z } from "zod";
 import { data } from "@/data/portfolio";
 
 type SendState = "idle" | "sending" | "sent" | "error";
+
+// Error bodies of /api/contact: { error: string }.
+const errorResponseSchema = z.object({ error: z.string() });
 
 export default function ContactSection() {
   const { hero } = data;
@@ -11,24 +15,49 @@ export default function ContactSection() {
   const [body, setBody] = useState("");
   const [company, setCompany] = useState(""); // Honeypot – bleibt leer für echte Nutzer
   const [sendState, setSendState] = useState<SendState>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  // Start of the fill time the API checks against bots (elapsedMs).
+  const [openedAt, setOpenedAt] = useState(() => performance.now());
 
   async function handleSend() {
     if (!email.trim() || !body.trim()) return;
     setSendState("sending");
+    setErrorMessage(null);
 
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email.trim(), message: body.trim(), company }),
-    });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email.trim(),
+          message: body.trim(),
+          company,
+          elapsedMs: Math.round(performance.now() - openedAt),
+        }),
+      });
 
-    setSendState(res.ok ? "sent" : "error");
+      if (!res.ok) {
+        const payload: unknown = await res.json().catch(() => null);
+        const parsed = errorResponseSchema.safeParse(payload);
+        setErrorMessage(parsed.success ? parsed.data.error : null);
+        setSendState("error");
+        return;
+      }
+
+      setSendState("sent");
+    } catch {
+      // Network failure: fetch rejected before any response arrived.
+      setErrorMessage(null);
+      setSendState("error");
+    }
   }
 
   function handleNew() {
     setEmail("");
     setBody("");
     setCompany("");
+    setErrorMessage(null);
+    setOpenedAt(performance.now());
     setSendState("idle");
   }
 
@@ -123,10 +152,13 @@ export default function ContactSection() {
             <span className="text-4xl">⚠️</span>
             <p className="text-[14px] font-medium text-gray-700">Fehler beim Senden</p>
             <p className="text-[12px] text-gray-500 text-center max-w-xs">
-              Bitte versuche es erneut oder schreib direkt an {hero.email}.
+              {errorMessage ?? `Bitte versuche es erneut oder schreib direkt an ${hero.email}.`}
             </p>
             <button
-              onClick={() => setSendState("idle")}
+              onClick={() => {
+                setErrorMessage(null);
+                setSendState("idle");
+              }}
               className="mt-2 px-4 py-1.5 rounded text-[12px] font-medium text-white"
               style={{
                 background: "linear-gradient(180deg, #7ab0e8 0%, #4a7fc1 100%)",
