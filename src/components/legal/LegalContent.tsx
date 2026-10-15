@@ -110,29 +110,27 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
         <section>
           <h2 className={`${s.h2} ${h2Base}`}>Hosting</h2>
           <p className="leading-relaxed text-neutral-500">
-            Diese Website wird bei der Vercel Inc., 340 S Lemon Ave #4133,
-            Walnut, CA 91789, USA, gehostet. Beim Aufruf der Website werden
-            technisch notwendige Daten (siehe Server-Log-Dateien) auf Servern von
-            Vercel verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO
-            (berechtigtes Interesse an einem sicheren und effizienten
-            Bereitstellen der Website). Mit Vercel besteht ein Vertrag zur
-            Auftragsverarbeitung (Art. 28 DSGVO). Da Vercel Daten auch in den USA
-            verarbeitet, erfolgt die Übermittlung auf Grundlage des EU-US Data
-            Privacy Framework bzw. der EU-Standardvertragsklauseln (Art. 44 ff.
-            DSGVO).
+            Diese Website läuft auf einem gemieteten Server (VPS) der Hostinger
+            International Ltd., 61 Lordou Vironos str., 6023 Larnaca, Zypern. Der
+            Server steht in Frankfurt am Main, Deutschland. Hostinger verarbeitet
+            die Daten in meinem Auftrag; ein Vertrag zur Auftragsverarbeitung nach
+            Art. 28 DSGVO besteht. Setzt Hostinger Unterauftragnehmer außerhalb
+            der EU ein, geschieht das auf Grundlage der EU-Standardvertragsklauseln
+            (Art. 46 DSGVO). Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO
+            (berechtigtes Interesse an einer sicheren und zuverlässigen
+            Bereitstellung der Website).
           </p>
         </section>
 
         <section>
           <h2 className={`${s.h2} ${h2Base}`}>Server-Log-Dateien</h2>
           <p className="leading-relaxed text-neutral-500">
-            Der Hosting-Anbieter dieser Website erhebt und speichert automatisch
-            Informationen in sogenannten Server-Log-Dateien, die Ihr Browser
-            automatisch übermittelt. Dies sind: Browsertyp und -version,
-            verwendetes Betriebssystem, Referrer-URL, IP-Adresse, Hostname des
-            zugreifenden Rechners sowie Uhrzeit der Serveranfrage. Eine
-            Zusammenführung dieser Daten mit anderen Datenquellen findet nicht
-            statt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
+            Beim Aufruf der Website verarbeitet mein Server Ihre IP-Adresse, den
+            Zeitpunkt der Anfrage, die aufgerufene Adresse und die Kennung Ihres
+            Browsers, um Ihnen die Seite auszuliefern. Ein Zugriffsprotokoll wird
+            nicht geführt. Fehlermeldungen des Servers können Ihre IP-Adresse
+            enthalten; sie werden spätestens nach 8 Tagen gelöscht.
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
             Interesse am technisch fehlerfreien und sicheren Betrieb der
             Website).
           </p>
@@ -145,15 +143,15 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
             werden die von Ihnen angegebene E-Mail-Adresse und der Inhalt Ihrer
             Nachricht verarbeitet und an mich per E-Mail übermittelt. Zur Abwehr
             von Missbrauch (Spam) wird Ihre IP-Adresse für eine kurze Zeit
-            verarbeitet (Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO). Den Versand
-            der E-Mails wickle ich über den Dienstleister Resend (Resend, Inc.,
-            2261 Market Street #5039, San Francisco, CA 94114, USA) als
-            Auftragsverarbeiter ab; dabei können Daten in die USA übermittelt
-            werden (Grundlage: EU-US Data Privacy Framework bzw.
-            EU-Standardvertragsklauseln). Rechtsgrundlage für die Verarbeitung
-            Ihrer Angaben ist Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) bzw.
-            Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der
-            Beantwortung von Anfragen).
+            verarbeitet (Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO). Die E-Mails
+            werden über meinen E-Mail-Anbieter ALL-INKL.COM – Neue Medien
+            Münnich, Inhaber René Münnich, Hauptstraße 68, 02742 Friedersdorf,
+            Deutschland, versendet und dort gespeichert. Mit ALL-INKL besteht ein
+            Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO); die Verarbeitung
+            erfolgt in Deutschland. Rechtsgrundlage für die Verarbeitung Ihrer
+            Angaben ist Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) bzw. Art. 6
+            Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung von
+            Anfragen).
           </p>
         </section>
 
