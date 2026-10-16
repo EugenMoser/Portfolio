@@ -195,6 +195,26 @@ export default function ContactSection() {
         )}
       </div>
 
+      {/* Privacy hint */}
+      <div
+        className="px-3 py-1 flex-shrink-0 text-[10px] text-gray-500"
+        style={{
+          background: "#ececec",
+          borderTop: "1px solid rgba(0,0,0,0.08)",
+        }}
+      >
+        Deine E-Mail-Adresse und Nachricht nutze ich nur, um dir zu antworten. Mehr in der{" "}
+        <a
+          href="/datenschutz"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline text-gray-600"
+        >
+          Datenschutzerklärung
+        </a>
+        .
+      </div>
+
       {/* Status bar */}
       <div
         className="flex items-center justify-between px-3 flex-shrink-0 text-[10px] text-gray-500"
