@@ -79,8 +79,8 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
             bindet keine Analyse-Dienste (z. B. Google Analytics) ein. Eine
             Verarbeitung personenbezogener Daten findet nur in dem technisch
             erforderlichen Umfang statt – beim Aufruf der Seiten (Server-Logs)
-            und wenn Sie das Kontaktformular nutzen oder mir eine E-Mail
-            schreiben. Näheres dazu in den folgenden Abschnitten. Eine automatisierte
+            und wenn Sie das Kontaktformular nutzen, mir eine E-Mail schreiben
+            oder mich anrufen. Näheres dazu in den folgenden Abschnitten. Eine automatisierte
             Entscheidungsfindung einschließlich Profiling (Art. 22 DSGVO) findet
             nicht statt.
           </p>
@@ -106,12 +106,12 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
           <p className="leading-relaxed text-neutral-500">
             Beim Aufruf der Website verarbeitet mein Server Ihre IP-Adresse, den
             Zeitpunkt der Anfrage, die aufgerufene Adresse und die Kennung Ihres
-            Browsers, um Ihnen die Seite auszuliefern. Ein Zugriffsprotokoll wird
-            nicht geführt. Fehlermeldungen des Servers können Ihre IP-Adresse
-            enthalten; sie werden spätestens nach 8 Tagen gelöscht. Ohne diese
-            Angaben kann die Website nicht ausgeliefert werden. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
-            Interesse am technisch fehlerfreien und sicheren Betrieb der
-            Website).
+            Browsers, um Ihnen die Seite auszuliefern. Ohne Ihre IP-Adresse kann die
+            Website nicht ausgeliefert werden. Ein Zugriffsprotokoll wird nicht
+            geführt. Fehlermeldungen des Servers können Ihre IP-Adresse
+            enthalten; sie werden spätestens nach 8 Tagen gelöscht. Rechtsgrundlage
+            ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am technisch
+            fehlerfreien und sicheren Betrieb der Website).
           </p>
         </section>
 
@@ -121,8 +121,8 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
             Über das Kontaktformular können Sie mir eine Nachricht senden. Dabei
             werden die von Ihnen angegebene E-Mail-Adresse und der Inhalt Ihrer
             Nachricht verarbeitet und an mich per E-Mail übermittelt. Zur Abwehr
-            von Missbrauch (Spam) hält der Server Ihre IP-Adresse höchstens 11
-            Minuten im Arbeitsspeicher und speichert sie nicht dauerhaft
+            von Missbrauch (Spam) hält der Server Ihre IP-Adresse bis höchstens 11
+            Minuten nach Ihrer letzten Anfrage im Arbeitsspeicher und speichert sie nicht dauerhaft
             (Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse
             am Schutz vor Missbrauch). Die E-Mails
             werden über meinen E-Mail-Anbieter ALL-INKL.COM – Neue Medien
@@ -142,12 +142,12 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
         <section>
           <h2 className={`${s.h2} ${h2Base}`}>Kontaktaufnahme per E-Mail oder Telefon</h2>
           <p className="leading-relaxed text-neutral-500">
-            Wenn Sie mir per E-Mail Kontakt aufnehmen, werden Ihre Angaben
+            Wenn Sie per E-Mail oder Telefon mit mir Kontakt aufnehmen, werden Ihre Angaben
             inklusive der von Ihnen angegebenen Kontaktdaten zwecks Bearbeitung
             der Anfrage bei mir gespeichert. Diese Daten gebe ich nicht ohne Ihre
             Einwilligung weiter. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO
             (Vertragsanbahnung) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
-            Interesse an der Beantwortung von Anfragen). Ich lösche Ihre Nachricht
+            Interesse an der Beantwortung von Anfragen). Ich lösche Ihre Angaben
             sechs Monate nach Abschluss der Anfrage, sofern keine gesetzliche
             Aufbewahrungspflicht besteht.
           </p>
@@ -184,8 +184,8 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
           <h2 className={`${s.h2} ${h2Base}`}>Beschwerderecht</h2>
           <p className="leading-relaxed text-neutral-500">
             Sie können sich bei einer Datenschutz-Aufsichtsbehörde beschweren
-            (Art. 77 DSGVO). Zuständig ist der Landesbeauftragte für den
-            Datenschutz und die Informationsfreiheit Baden-Württemberg,
+            (Art. 77 DSGVO). Die für mich zuständige Aufsichtsbehörde ist der
+            Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg,
             Heilbronner Straße 35, 70191 Stuttgart.
           </p>
         </section>
@@ -200,7 +200,7 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
           </p>
         </section>
 
-        <p className="text-xs text-neutral-600">Stand: Oktober 2026</p>
+        <p className="text-xs text-neutral-500">Stand: Oktober 2026</p>
       </div>
     </>
   );
