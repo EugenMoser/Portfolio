@@ -254,12 +254,26 @@ export default function Menubar({ onNavigate, windowOpen, shaded, onOpenWindow, 
           </div>
 
           {/* Legal */}
-          <span style={menuLabelStyle} onClick={() => onOpenLegal("impressum")}>
+          <a
+            href="/impressum"
+            style={{ ...menuLabelStyle, textDecoration: "none" }}
+            onClick={(e) => {
+              e.preventDefault();
+              onOpenLegal("impressum");
+            }}
+          >
             Impressum
-          </span>
-          <span style={menuLabelStyle} onClick={() => onOpenLegal("datenschutz")}>
+          </a>
+          <a
+            href="/datenschutz"
+            style={{ ...menuLabelStyle, textDecoration: "none" }}
+            onClick={(e) => {
+              e.preventDefault();
+              onOpenLegal("datenschutz");
+            }}
+          >
             Datenschutz
-          </span>
+          </a>
         </div>
 
         {/* Right: clock + spotlight */}
