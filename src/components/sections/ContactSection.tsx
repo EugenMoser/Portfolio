@@ -211,6 +211,7 @@ export default function ContactSection() {
           className="underline text-gray-600"
         >
           Datenschutzerklärung
+          <span className="sr-only"> (öffnet in neuem Tab)</span>
         </a>
         .
       </div>
