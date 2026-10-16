@@ -33,7 +33,7 @@ export function ImpressumContent({ variant = "window" }: { variant?: Variant }) 
         <section>
           <h2 className={`${s.h2} ${h2Base}`}>Angaben gemäß § 5 DDG</h2>
           <p className="text-neutral-300">Eugen Moser</p>
-          <p className="text-neutral-300">Felderhalde 5</p>
+          <p className="text-neutral-300">An der Felderhalde 5</p>
           <p className="text-neutral-300">88316 Isny im Allgäu</p>
           <p className="text-neutral-300">Deutschland</p>
         </section>
@@ -66,7 +66,7 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
         <section>
           <h2 className={`${s.h2} ${h2Base}`}>Verantwortlicher</h2>
           <p className="leading-relaxed text-neutral-400">
-            Eugen Moser, Felderhalde 5, 88316 Isny im Allgäu, Deutschland
+            Eugen Moser, An der Felderhalde 5, 88316 Isny im Allgäu, Deutschland
             <br />
             E-Mail: <MailLink />
           </p>
@@ -82,7 +82,9 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
             und wenn Sie das Kontaktformular nutzen, mir eine E-Mail schreiben
             oder mich anrufen. Näheres dazu in den folgenden Abschnitten. Eine automatisierte
             Entscheidungsfindung einschließlich Profiling (Art. 22 DSGVO) findet
-            nicht statt.
+            nicht statt. Soweit unten keine speziellere Speicherdauer genannt ist,
+            speichere ich Ihre Daten nur so lange, wie es für den jeweiligen Zweck
+            erforderlich ist; gesetzliche Aufbewahrungsfristen bleiben unberührt.
           </p>
         </section>
 
@@ -98,6 +100,21 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
             (Art. 46 DSGVO). Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO
             (berechtigtes Interesse an einer sicheren und zuverlässigen
             Bereitstellung der Website).
+          </p>
+        </section>
+
+        <section>
+          <h2 className={`${s.h2} ${h2Base}`}>SSL- bzw. TLS-Verschlüsselung</h2>
+          <p className="leading-relaxed text-neutral-500">
+            Diese Website nutzt aus Sicherheitsgründen und zum Schutz der
+            Übertragung vertraulicher Inhalte, etwa Ihrer Nachricht über das
+            Kontaktformular, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte
+            Verbindung erkennen Sie an „https://“ in der Adresszeile Ihres Browsers
+            und am Schloss-Symbol. Ist die Verschlüsselung aktiv, können die Daten,
+            die Sie an mich übermitteln, nicht von Dritten mitgelesen werden. Die
+            Datenübertragung im Internet, etwa bei der Kommunikation per E-Mail,
+            kann dennoch Sicherheitslücken aufweisen; ein lückenloser Schutz vor dem
+            Zugriff durch Dritte ist nicht möglich.
           </p>
         </section>
 
