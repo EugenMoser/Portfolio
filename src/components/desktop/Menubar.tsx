@@ -134,6 +134,7 @@ export default function Menubar({ onNavigate, windowOpen, shaded, onOpenWindow, 
   }
 
   function handleLegalClick(e: React.MouseEvent<HTMLAnchorElement>, kind: "impressum" | "datenschutz") {
+    closeMenu();
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
     onOpenLegal(kind);
