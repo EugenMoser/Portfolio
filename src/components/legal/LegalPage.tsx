@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function LegalPage({ children }: { children: React.ReactNode }) {
   return (
-    <div className="h-dvh overflow-y-auto bg-[#1e1e1e]">
+    <div className="min-h-dvh bg-[#1e1e1e]">
       <main className="mx-auto max-w-2xl px-8 py-12 text-sm">
         <Link
           href="/"
