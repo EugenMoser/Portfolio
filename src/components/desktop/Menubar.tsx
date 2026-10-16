@@ -133,6 +133,12 @@ export default function Menubar({ onNavigate, windowOpen, shaded, onOpenWindow, 
     setOpenMenu(null);
   }
 
+  function handleLegalClick(e: React.MouseEvent<HTMLAnchorElement>, kind: "impressum" | "datenschutz") {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
+    onOpenLegal(kind);
+  }
+
   const menuLabelStyle: React.CSSProperties = {
     padding: "2px 8px",
     borderRadius: 4,
@@ -257,20 +263,14 @@ export default function Menubar({ onNavigate, windowOpen, shaded, onOpenWindow, 
           <a
             href="/impressum"
             style={{ ...menuLabelStyle, textDecoration: "none" }}
-            onClick={(e) => {
-              e.preventDefault();
-              onOpenLegal("impressum");
-            }}
+            onClick={(e) => handleLegalClick(e, "impressum")}
           >
             Impressum
           </a>
           <a
             href="/datenschutz"
             style={{ ...menuLabelStyle, textDecoration: "none" }}
-            onClick={(e) => {
-              e.preventDefault();
-              onOpenLegal("datenschutz");
-            }}
+            onClick={(e) => handleLegalClick(e, "datenschutz")}
           >
             Datenschutz
           </a>
