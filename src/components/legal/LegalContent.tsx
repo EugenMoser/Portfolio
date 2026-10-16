@@ -50,29 +50,6 @@ export function ImpressumContent({ variant = "window" }: { variant?: Variant }) 
             </a>
           </p>
         </section>
-
-        <section>
-          <h2 className={`${s.h2} ${h2Base}`}>Haftung für Inhalte</h2>
-          <p className="leading-relaxed text-neutral-500">
-            Als Diensteanbieter bin ich gemäß § 7 Abs. 1 DDG für eigene Inhalte
-            auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach
-            §§ 8 bis 10 DDG bin ich als Diensteanbieter jedoch nicht
-            verpflichtet, übermittelte oder gespeicherte fremde Informationen zu
-            überwachen. Bei bekannt werden von Rechtsverletzungen werde ich diese
-            Inhalte umgehend entfernen.
-          </p>
-        </section>
-
-        <section>
-          <h2 className={`${s.h2} ${h2Base}`}>Haftung für Links</h2>
-          <p className="leading-relaxed text-neutral-500">
-            Mein Angebot enthält Links zu externen Websites Dritter, auf deren
-            Inhalte ich keinen Einfluss habe. Für die Inhalte der verlinkten
-            Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten
-            verantwortlich. Bei bekannt werden von Rechtsverletzungen werde ich
-            derartige Links umgehend entfernen.
-          </p>
-        </section>
       </div>
     </>
   );
@@ -103,7 +80,9 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
             Verarbeitung personenbezogener Daten findet nur in dem technisch
             erforderlichen Umfang statt – beim Aufruf der Seiten (Server-Logs)
             und wenn Sie das Kontaktformular nutzen oder mir eine E-Mail
-            schreiben. Näheres dazu in den folgenden Abschnitten.
+            schreiben. Näheres dazu in den folgenden Abschnitten. Eine automatisierte
+            Entscheidungsfindung einschließlich Profiling (Art. 22 DSGVO) findet
+            nicht statt.
           </p>
         </section>
 
@@ -129,8 +108,8 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
             Zeitpunkt der Anfrage, die aufgerufene Adresse und die Kennung Ihres
             Browsers, um Ihnen die Seite auszuliefern. Ein Zugriffsprotokoll wird
             nicht geführt. Fehlermeldungen des Servers können Ihre IP-Adresse
-            enthalten; sie werden spätestens nach 8 Tagen gelöscht.
-            Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
+            enthalten; sie werden spätestens nach 8 Tagen gelöscht. Ohne diese
+            Angaben kann die Website nicht ausgeliefert werden. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
             Interesse am technisch fehlerfreien und sicheren Betrieb der
             Website).
           </p>
@@ -142,8 +121,10 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
             Über das Kontaktformular können Sie mir eine Nachricht senden. Dabei
             werden die von Ihnen angegebene E-Mail-Adresse und der Inhalt Ihrer
             Nachricht verarbeitet und an mich per E-Mail übermittelt. Zur Abwehr
-            von Missbrauch (Spam) wird Ihre IP-Adresse für eine kurze Zeit
-            verarbeitet (Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO). Die E-Mails
+            von Missbrauch (Spam) hält der Server Ihre IP-Adresse höchstens 11
+            Minuten im Arbeitsspeicher und speichert sie nicht dauerhaft
+            (Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse
+            am Schutz vor Missbrauch). Die E-Mails
             werden über meinen E-Mail-Anbieter ALL-INKL.COM – Neue Medien
             Münnich, Inhaber René Münnich, Hauptstraße 68, 02742 Friedersdorf,
             Deutschland, versendet und dort gespeichert. Mit ALL-INKL besteht ein
@@ -151,32 +132,61 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
             erfolgt in Deutschland. Rechtsgrundlage für die Verarbeitung Ihrer
             Angaben ist Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) bzw. Art. 6
             Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung von
-            Anfragen).
+            Anfragen). Sie sind nicht verpflichtet, mir Daten bereitzustellen; ohne
+            E-Mail-Adresse kann ich Ihnen aber nicht antworten. Ich lösche Ihre
+            Nachricht sechs Monate nach Abschluss der Anfrage, sofern keine
+            gesetzliche Aufbewahrungspflicht besteht.
           </p>
         </section>
 
         <section>
-          <h2 className={`${s.h2} ${h2Base}`}>Kontaktaufnahme per E-Mail</h2>
+          <h2 className={`${s.h2} ${h2Base}`}>Kontaktaufnahme per E-Mail oder Telefon</h2>
           <p className="leading-relaxed text-neutral-500">
             Wenn Sie mir per E-Mail Kontakt aufnehmen, werden Ihre Angaben
             inklusive der von Ihnen angegebenen Kontaktdaten zwecks Bearbeitung
             der Anfrage bei mir gespeichert. Diese Daten gebe ich nicht ohne Ihre
             Einwilligung weiter. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO
             (Vertragsanbahnung) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
-            Interesse an der Beantwortung von Anfragen).
+            Interesse an der Beantwortung von Anfragen). Ich lösche Ihre Nachricht
+            sechs Monate nach Abschluss der Anfrage, sofern keine gesetzliche
+            Aufbewahrungspflicht besteht.
           </p>
         </section>
 
         <section>
           <h2 className={`${s.h2} ${h2Base}`}>Ihre Rechte</h2>
           <p className="leading-relaxed text-neutral-500">
-            Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung
-            und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten, das
-            Recht auf Datenübertragbarkeit sowie das Recht, einer auf Art. 6 Abs.
-            1 lit. f DSGVO gestützten Verarbeitung zu widersprechen (Art. 21
-            DSGVO). Außerdem steht Ihnen ein Beschwerderecht bei einer
-            Datenschutz-Aufsichtsbehörde zu (Art. 77 DSGVO). Bei Fragen wenden
-            Sie sich bitte an: <MailLink />
+            Sie haben jederzeit das Recht auf Auskunft (Art. 15 DSGVO),
+            Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO) und
+            Einschränkung der Verarbeitung (Art. 18 DSGVO) Ihrer
+            personenbezogenen Daten sowie das Recht auf Datenübertragbarkeit
+            (Art. 20 DSGVO). Bei Fragen wenden Sie sich bitte an: <MailLink />
+          </p>
+        </section>
+
+        <section>
+          <h2 className={`${s.h2} ${h2Base}`}>
+            Widerspruchsrecht (Art. 21 DSGVO)
+          </h2>
+          <p className="leading-relaxed text-neutral-300">
+            Soweit ich Ihre Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO
+            verarbeite, können Sie dieser Verarbeitung aus Gründen, die sich aus
+            Ihrer besonderen Situation ergeben, jederzeit widersprechen. Ich
+            verarbeite die Daten dann nicht mehr, es sei denn, ich kann
+            zwingende schutzwürdige Gründe für die Verarbeitung nachweisen, die
+            Ihre Interessen, Rechte und Freiheiten überwiegen, oder die
+            Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung
+            von Rechtsansprüchen.
+          </p>
+        </section>
+
+        <section>
+          <h2 className={`${s.h2} ${h2Base}`}>Beschwerderecht</h2>
+          <p className="leading-relaxed text-neutral-500">
+            Sie können sich bei einer Datenschutz-Aufsichtsbehörde beschweren
+            (Art. 77 DSGVO). Zuständig ist der Landesbeauftragte für den
+            Datenschutz und die Informationsfreiheit Baden-Württemberg,
+            Heilbronner Straße 35, 70191 Stuttgart.
           </p>
         </section>
 
@@ -189,6 +199,8 @@ export function DatenschutzContent({ variant = "window" }: { variant?: Variant }
             auf deren Datenverarbeitung.
           </p>
         </section>
+
+        <p className="text-xs text-neutral-600">Stand: Oktober 2026</p>
       </div>
     </>
   );
