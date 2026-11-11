@@ -203,9 +203,10 @@ export default function ContactSection() {
           borderTop: "1px solid rgba(0,0,0,0.08)",
         }}
       >
-        Deine E-Mail-Adresse und Nachricht nutze ich nur, um dir zu antworten. Mehr in der{" "}
+        Deine Angaben verwende ich, um deine Anfrage zu bearbeiten. Mehr dazu, auch zur
+        Speicherdauer, in der{" "}
         <a
-          href="/datenschutz"
+          href="/datenschutz#kontaktformular"
           target="_blank"
           rel="noopener noreferrer"
           className="underline text-gray-600"

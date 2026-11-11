@@ -39,10 +39,10 @@ Image aus dem Branch `main` und setzt die Umgebungsvariablen zur Laufzeit:
 | Variable    | Inhalt                                                          |
 | ----------- | --------------------------------------------------------------- |
 | `SITE_URL`  | öffentliche URL; nur von diesem Origin nimmt `/api/contact` an  |
-| `SMTP_HOST` | SMTP-Server des Postfachs (ALL-INKL: `w0….kasserver.com`)       |
+| `SMTP_HOST` | SMTP-Server des Postfachs (Hostinger: `smtp.hostinger.com`)     |
 | `SMTP_PORT` | optional, Standard `465` (SSL/TLS); jeder andere Port: STARTTLS |
-| `SMTP_USER` | Postfach-Adresse, zugleich Absender (`formular@<domain>`)       |
-| `SMTP_PASS` | Passwort des Postfachs                                          |
+| `SMTP_USER` | Postfach-Adresse, zugleich Absender (`info@<domain>`)           |
+| `SMTP_PASS` | Passwort oder App-Passwort des Postfachs                        |
 
 Lokal testen:
 

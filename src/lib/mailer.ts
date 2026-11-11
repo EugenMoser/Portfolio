@@ -4,8 +4,8 @@ import { z } from "zod";
 import { data } from "@/data/portfolio";
 import { AppError, ErrorCode, Severity } from "@/lib/errors";
 
-// Outbound mail for the contact form, sent through the ALL-INKL mailbox over
-// SMTP. Only server code may import this module.
+// Outbound mail for the contact form, sent over SMTP through the mailbox set in
+// the SMTP_* env vars. Only server code may import this module.
 
 /** Limit for each connection phase (DNS lookup, connect, SMTP greeting) and for socket
  *  inactivity, so a slow or unreachable server fails instead of hanging. Not a cap on the
@@ -19,7 +19,8 @@ const TRANSIENT_CODES = new Set(["ETIMEDOUT", "ESOCKET", "ECONNECTION", "EDNS"])
 const smtpEnvSchema = z.object({
   SMTP_HOST: z.string().trim().min(1),
   SMTP_PORT: z.coerce.number().int().min(1).max(65535).default(IMPLICIT_TLS_PORT),
-  // Also the sender address: ALL-INKL only relays mail from the mailbox itself.
+  // Also the sender address: mail providers usually relay only mail sent from
+  // the authenticated mailbox itself.
   SMTP_USER: z.email(),
   SMTP_PASS: z.string().min(1),
 });
