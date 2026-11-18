@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { data } from "@/data/portfolio";
 
 export default function AboutSection() {
@@ -6,14 +7,24 @@ export default function AboutSection() {
   return (
     <div className="p-6 max-w-2xl">
       <div className="flex items-start gap-4 mb-6">
-        <div
-          className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0"
-          style={{
-            background: "linear-gradient(145deg, #6fa3e0, #4a7fc1)",
-            boxShadow: "0 4px 12px rgba(74,127,193,0.4)",
-          }}
-        >
-          👤
+        {/* AI-generated portrait: keep the visible "KI" badge and the note in the alt text. */}
+        <div className="relative flex-shrink-0">
+          <Image
+            src="/Portfolio-Image.png"
+            alt={`KI-generiertes Porträt von ${hero.name} vor Logos von React, Next.js, TypeScript und anderen Technologien`}
+            width={64}
+            height={64}
+            className="w-16 h-16 rounded-full"
+            style={{ boxShadow: "0 4px 12px rgba(74,127,193,0.4)" }}
+          />
+          {/* aria-hidden: screen readers already get the note from the alt text. */}
+          <span
+            aria-hidden="true"
+            title="KI-generiert"
+            className="absolute -bottom-0.5 -right-0.5 rounded-full bg-gray-800 px-1.5 text-[10px] font-semibold leading-4 text-white ring-2 ring-white"
+          >
+            KI
+          </span>
         </div>
         <div>
           <h1 className="text-xl font-bold text-gray-800">{hero.name}</h1>
