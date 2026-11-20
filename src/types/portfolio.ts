@@ -28,7 +28,8 @@ export interface Project {
   bullets: string[];
   tags: string[];
   period: string;
-  link?: string;
+  liveUrl?: `https://${string}`;
+  repoUrl?: `https://${string}`;
 }
 
 export interface Certification {
