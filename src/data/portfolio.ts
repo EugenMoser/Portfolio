@@ -208,6 +208,7 @@ Was mich unterscheidet: Ich verbinde unternehmerisches Denken mit technischer Pr
         "Jest",
       ],
       period: "2024/2025",
+      liveUrl: "https://bazam.vercel.app",
     },
     {
       title: "Baumann-Entwicklungen – Website v2",
