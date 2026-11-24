@@ -1,4 +1,29 @@
+import type { ReactNode } from "react";
 import { data } from "@/data/portfolio";
+import type { Url } from "@/types/portfolio";
+
+function ExternalLink({
+  href,
+  srHint,
+  children,
+}: {
+  href: Url;
+  srHint: string;
+  children: ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block py-1 text-[11px] font-medium hover:underline focus-visible:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2f5f9e]"
+      style={{ color: "#2f5f9e" }}
+    >
+      {children} <span aria-hidden="true">↗</span>
+      <span className="sr-only">{srHint}</span>
+    </a>
+  );
+}
 
 export default function ProjectsSection() {
   return (
@@ -8,13 +33,8 @@ export default function ProjectsSection() {
       </h2>
       <div className="grid gap-3">
         {data.projects.map((project) => {
-          const links = [
-            { label: "Live ansehen", href: project.liveUrl },
-            { label: "Code", href: project.repoUrl },
-          ].filter(
-            (link): link is { label: string; href: `https://${string}` } =>
-              Boolean(link.href),
-          );
+          const { live, repoUrl } = project;
+          const hasLinks = live !== undefined || repoUrl !== undefined;
 
           return (
             <div
@@ -61,21 +81,34 @@ export default function ProjectsSection() {
                   </span>
                 ))}
               </div>
-              {links.length > 0 && (
-                <div className="mt-1 flex gap-3">
-                  {links.map((link) => (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block py-1 text-[11px] font-medium hover:underline focus-visible:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2f5f9e]"
-                      style={{ color: "#2f5f9e" }}
-                    >
-                      {link.label} <span aria-hidden="true">↗</span>
-                      <span className="sr-only">(öffnet in neuem Tab)</span>
-                    </a>
-                  ))}
+              {hasLinks && (
+                <div className="mt-1 flex flex-wrap items-center gap-x-3">
+                  {typeof live === "string" && (
+                    <ExternalLink href={live} srHint="(öffnet in neuem Tab)">
+                      Live ansehen
+                    </ExternalLink>
+                  )}
+                  {Array.isArray(live) && (
+                    <span className="inline-flex flex-wrap items-center gap-x-3">
+                      <span className="py-1 text-[11px] font-medium text-gray-600">
+                        Live:
+                      </span>
+                      {live.map((entry) => (
+                        <ExternalLink
+                          key={entry.href}
+                          href={entry.href}
+                          srHint="(Live-Demo, öffnet in neuem Tab)"
+                        >
+                          {entry.label}
+                        </ExternalLink>
+                      ))}
+                    </span>
+                  )}
+                  {repoUrl !== undefined && (
+                    <ExternalLink href={repoUrl} srHint="(öffnet in neuem Tab)">
+                      Code
+                    </ExternalLink>
+                  )}
                 </div>
               )}
             </div>

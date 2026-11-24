@@ -187,17 +187,18 @@ Was mich unterscheidet: Ich verbinde unternehmerisches Denken mit technischer Pr
         "GitHub Actions",
       ],
       period: "10/2026 – heute",
-      liveUrl: "https://baumann.eugen-moser.com",
+      live: "https://baumann.eugen-moser.com",
       repoUrl: "https://github.com/EugenMoser/baumann-project",
     },
     {
       title: "Branchen-Demos – Websites für erfundene Betriebe",
       description:
-        "Demo-Websites für erfundene Betriebe, als Arbeitsprobe für Kunden. Handwerk, Gastgeber, Physio und Reise laufen in einer Next.js-App. Die Handwerk-Demo ist seit November 2026 live, die anderen folgen.",
+        "Demo-Websites für erfundene Betriebe, als Arbeitsprobe für Kunden. Handwerk, Gastgeber, Physio und Reise laufen in einer Next.js-App. Handwerk und Physio sind seit November 2026 live, Gastgeber und Reise folgen.",
       bullets: [
         "Eine Next.js-App für vier Branchen: je Branche eine Route Group mit eigenem Root-Layout. Der Proxy schreibt die Subdomain auf die Route um, eslint-plugin-boundaries erzwingt die Importgrenzen.",
         "Handwerk: 3D-Dachaufbau mit Three.js und React Three Fiber, gesteuert über den Scroll, mit PBR-Materialien und Nachbearbeitung (Ambient Occlusion, Bloom, SMAA).",
-        "Eigene Bildratenüberwachung mit drei Qualitätsstufen. Bei reduzierter Bewegung, ohne WebGL und bei Kontextverlust ersetzt ein Standbild die Szene.",
+        "Physio: 3D-Körperkarte, bei der die Kamera zur gewählten Region fährt, und Online-Terminbuchung (Zustand) mit Kalenderdatei zum Termin.",
+        "Beide 3D-Szenen nutzen einen gemeinsamen Kern: eigene Bildratenüberwachung mit drei Qualitätsstufen, Standbild bei reduzierter Bewegung, ohne WebGL, bei Save-Data, wenig Speicher und Kontextverlust.",
         "Datenschutz von Anfang an: keine Cookies, keine Anfragen an Dritte, Fonts und Texturen selbst gehostet. Formulare laufen als Server Actions mit Zod und Honeypot.",
         "TypeScript strict, über 1.000 Unit-Tests (Vitest), Playwright-E2E- und Screenshot-Tests, Pre-Commit-Hook mit gitleaks, ESLint, Typecheck und Tests.",
         "Docker (Next standalone) auf Coolify mit Auto-Deploy aus main. Entwickelt mit Claude Code: Spec und Plan je Feature, Review vor jedem Merge.",
@@ -217,7 +218,10 @@ Was mich unterscheidet: Ich verbinde unternehmerisches Denken mit technischer Pr
         "Coolify",
       ],
       period: "10/2026 – heute",
-      liveUrl: "https://handwerk-demo.eugen-moser.com",
+      live: [
+        { label: "Handwerk", href: "https://handwerk-demo.eugen-moser.com" },
+        { label: "Physio", href: "https://physio-demo.eugen-moser.com" },
+      ],
     },
     {
       title: "Bazam – Regionaler Marktplatz",
@@ -238,7 +242,7 @@ Was mich unterscheidet: Ich verbinde unternehmerisches Denken mit technischer Pr
         "Jest",
       ],
       period: "2024/2025",
-      liveUrl: "https://bazam.vercel.app",
+      live: "https://bazam.vercel.app",
     },
   ],
 

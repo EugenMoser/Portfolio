@@ -22,14 +22,22 @@ export interface Experience {
   tags: string[];
 }
 
+export type Url = `https://${string}`;
+
+export interface LiveLink {
+  label: string;
+  href: Url;
+}
+
 export interface Project {
   title: string;
   description: string;
   bullets: string[];
   tags: string[];
   period: string;
-  liveUrl?: `https://${string}`;
-  repoUrl?: `https://${string}`;
+  /** A single unnamed live link, or a non-empty list of named live demos. */
+  live?: Url | [LiveLink, ...LiveLink[]];
+  repoUrl?: Url;
 }
 
 export interface Certification {
