@@ -161,6 +161,36 @@ Was mich unterscheidet: Ich verbinde unternehmerisches Denken mit technischer Pr
       period: "2023 – heute",
     },
     {
+      title: "Baumann – Produktkatalog mit Admin-Bereich und KI-Textassistent",
+      description:
+        "Neuaufbau des Produktkatalogs eines Spritzguss-Herstellers für die Caravan-Branche (rund 126 Produktgruppen, 283 Artikel) als Next.js- und Supabase-App. Die Vorschau läuft mit dem importierten Originalkatalog, mit Einwilligung des Kunden, und ist nicht indexiert.",
+      bullets: [
+        "Öffentlicher Katalog mit Kategorie- und Produktseiten, Varianten, Farben und daraus abgeleiteten Bestellnummern. Suche nach Name und Artikelnummer, ProductGroup-JSON-LD, ISR.",
+        "Admin-Bereich (shadcn/ui) für Produkte, Artikel, Kategorien, Farben, Materialien und Bilder. Änderungen sind ohne Redeploy live.",
+        "KI-Textassistent: Er schlägt Produktbeschreibung und SEO-Texte aus den Strukturdaten vor, zuerst über ein freies Modell bei OpenRouter (Vercel AI SDK), als Fallback über Claude Haiku (Anthropic SDK). Ein Mensch prüft und übernimmt sie, KI-Felder bleiben gekennzeichnet, Rate-Limit und Kostendeckel sind eingebaut.",
+        "Selbst gehostetes Supabase (PostgreSQL, Auth, Storage) mit RLS auf jeder Tabelle. Der Admin ist dreifach geschützt (Proxy, serverseitige Rollenprüfung, RLS). Schreibvorgänge über mehrere Tabellen laufen als SQL-Funktion in einer Transaktion.",
+        "Über 130 Vitest-Dateien, Playwright-E2E-Tests mit axe-Prüfung, pgTAP-Tests für die Datenbank. CI läuft auf jedem Pull Request. Ein Push auf main spielt die Migrationen ein, deployt auf Coolify und prüft danach per Smoke-Check.",
+        "KI-gestützt entwickelt mit Claude Code: Spec mit Anforderungs-IDs, Tests zuerst, Code- und Security-Review durch Agenten, Merge durch mich (26 Pull Requests).",
+      ],
+      tags: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "shadcn/ui",
+        "Supabase",
+        "PostgreSQL",
+        "Zod",
+        "Vercel AI SDK",
+        "Vitest",
+        "Playwright",
+        "GitHub Actions",
+      ],
+      period: "10/2026 – heute",
+      liveUrl: "https://baumann.eugen-moser.com",
+      repoUrl: "https://github.com/EugenMoser/baumann-project",
+    },
+    {
       title: "Branchen-Demos – Websites für erfundene Betriebe",
       description:
         "Demo-Websites für erfundene Betriebe, als Arbeitsprobe für Kunden. Handwerk, Gastgeber, Physio und Reise laufen in einer Next.js-App. Die Handwerk-Demo ist seit November 2026 live, die anderen folgen.",
@@ -209,25 +239,6 @@ Was mich unterscheidet: Ich verbinde unternehmerisches Denken mit technischer Pr
       ],
       period: "2024/2025",
       liveUrl: "https://bazam.vercel.app",
-    },
-    {
-      title: "Baumann-Entwicklungen – Website v2",
-      description:
-        "Vollständiger Fullstack-Aufbau einer Unternehmenswebsite von A bis Z.",
-      bullets: [
-        "NextAuth-Authentifizierung mit Middleware und geschützten API-Routen",
-        "Datenbankmodelle und CRUD-Operationen via Prisma ORM + MongoDB",
-        "Tailwind CSS Design-System, responsive Layout",
-      ],
-      tags: [
-        "Next.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "Prisma",
-        "MongoDB",
-        "NextAuth",
-      ],
-      period: "2024",
     },
   ],
 
